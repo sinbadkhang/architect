@@ -1,4 +1,4 @@
-﻿1. Bất cứ file nào thuộc về admin thì bỏ vào folder admin, tương tự với client.
+﻿1. Bất cứ file nào thuộc về admin thì bỏ vào folder admin, tương tự với client. File php chạy html, file css hoặc bất cứ file nào về giao diện thì bỏ vào view. File js xử lý bỏ vào control. File php tương tác với db bỏ vào model.
 
 2. Tên biến, hàm đặt tên Tiếng Anh, đúng cú pháp.
 
