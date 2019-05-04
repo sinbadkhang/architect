@@ -1,4 +1,4 @@
-﻿1. Bất cứ file nào thuộc về admin thì bỏ vào folder admin, tương tự với customer.
+﻿1. Bất cứ file nào thuộc về admin thì bỏ vào folder admin, tương tự với client.
 
 2. Tên biến, hàm đặt tên Tiếng Anh, đúng cú pháp.
 
@@ -12,4 +12,4 @@
 
 7. Khi dùng git. Nếu chưa có project thì clone về. Sau khi làm xong, kiểm tra lại tất cả các chức năng có LIÊN QUAN đến phần của mình. Nếu ko có lỗi => Add , Commit với message nói rõ phần mình làm => Pull về => Push lên.
 
-8. Có 2 database. Phần mọi người làm chỉ liên quan đến db1 (file config_1), phần của tôi (Khang) mới dùng đến db2 (config_2).
+8. Có 2 database. Phần mọi người làm chỉ liên quan đến db1 (trong config/database.php)
