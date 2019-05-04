@@ -82,6 +82,114 @@
 			$this->quantity = $row['quantity'];
 			$this->price = $row['price'];
 		}
+
+		// update product
+		public function update(){
+			// create query
+			$query = 'UPDATE '.$this->table.'
+				SET 
+				product_name = :product_name,
+				product_id = :product_id,
+				category_id = :category_id,
+				quantity = :quantity,
+				price = :price
+				WHERE
+				id = :id';
+
+			// prepare statement
+			$stmt = $this->conn->prepare($query);
+
+			// clean data
+			$this->product_name=htmlspecialchars(strip_tags($this->product_name));
+			$this->product_id=htmlspecialchars(strip_tags($this->product_id));
+			$this->category_id=htmlspecialchars(strip_tags($this->category_id));
+			$this->quantity=htmlspecialchars(strip_tags($this->quantity));
+			$this->price=htmlspecialchars(strip_tags($this->price));
+			$this->id=htmlspecialchars(strip_tags($this->id));
+
+			// bind data
+			$stmt->bindParam(':product_name', $this->product_name);
+			$stmt->bindParam(':product_id', $this->product_id);
+			$stmt->bindParam(':category_id', $this->category_id);
+			$stmt->bindParam(':quantity', $this->quantity);
+			$stmt->bindParam(':price', $this->price);
+			$stmt->bindParam(':id', $this->id);
+
+			// execute query
+			if($stmt->execute()){
+				return true;
+			}
+
+			// print error
+			print('Error: %s.\n'. $stmt->error);
+
+			return false;
+		}
+
+		// create product
+		public function create(){
+			// create query
+			$query = 'INSERT INTO '.$this->table.'
+				SET 
+				product_name = :product_name,
+				product_id = :product_id,
+				category_id = :category_id,
+				quantity = :quantity,
+				price = :price';
+
+			// prepare statement
+			$stmt = $this->conn->prepare($query);
+
+			// clean data
+			$this->product_name=htmlspecialchars(strip_tags($this->product_name));
+			$this->product_id=htmlspecialchars(strip_tags($this->product_id));
+			$this->category_id=htmlspecialchars(strip_tags($this->category_id));
+			$this->quantity=htmlspecialchars(strip_tags($this->quantity));
+			$this->price=htmlspecialchars(strip_tags($this->price));
+
+			// bind data
+			$stmt->bindParam(':product_name', $this->product_name);
+			$stmt->bindParam(':product_id', $this->product_id);
+			$stmt->bindParam(':category_id', $this->category_id);
+			$stmt->bindParam(':quantity', $this->quantity);
+			$stmt->bindParam(':price', $this->price);
+
+
+			// execute query
+			if($stmt->execute()){
+				return true;
+			}
+
+			// print error
+			print('Error: %s.\n'. $stmt->error);
+
+			return false;
+		}
+
+		// delete product
+		public function delete(){
+			// create query
+			$query = 'DELETE FROM '.$this->table.' WHERE id = :id';
+
+			// prepare statement
+			$stmt = $this->conn->prepare($query);
+
+			// clean data
+			$this->id = htmlspecialchars(strip_tags($this->id));
+			
+			// bind data
+			$stmt->bindParam(':id', $this->id);
+
+			// execute query
+			if($stmt->execute()){
+				return true;
+			}
+
+			// print error
+			print('Error: %s.\n'. $stmt->error);
+
+			return false;
+		}
 	}
 
  ?>
