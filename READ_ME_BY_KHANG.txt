@@ -1,6 +1,6 @@
 ﻿1. Bất cứ file nào thuộc về admin thì bỏ vào folder admin, tương tự với client.
 
-2. Tên biến, hàm đặt tên Tiếng Anh, đúng cú pháp.
+2. Tên biến, hàm đặt tên Tiếng Anh, đúng cú pháp. Và có COMMENT.
 
 3. Ai làm giao diện sẽ quy định name, id, class cho các element bằng Tiếng Anh, phải RÕ RÀNG và KHÔNG TRÙNG LẶP.
 
@@ -10,6 +10,18 @@
 
 6. Ai viết xử lý trong js phải viết đúng tên element được gọi trong file giao diện (html) và đúng tên file php.
 
-7. Khi dùng git. Nếu chưa có project thì clone về. Sau khi làm xong, kiểm tra lại tất cả các chức năng có LIÊN QUAN đến phần của mình. Nếu ko có lỗi => Add , Commit với message nói rõ phần mình làm => Pull về => Push lên.
+7. Khi dùng git. Nếu chưa có project thì clone về. 
+$git clone link folder
+
+Sau khi làm xong, kiểm tra lại tất cả các chức năng có LIÊN QUAN đến phần của mình. Nếu ko có lỗi. Kiểm tra thay đổi.
+$git status
+
+Nếu có thay đổi.
+$git add . 
+
+Commit với message nói rõ phần mình làm.
+$git commit -m "mô tả trong đây"
+$git pull
+$git push
 
 8. Có 2 database. Phần mọi người làm chỉ liên quan đến db1 (trong config/database.php)
