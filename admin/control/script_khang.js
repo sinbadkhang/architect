@@ -31,13 +31,31 @@ $(document).ready(function(){
 	    return o;
 	};
 
+	// Khang ajax get template
+	$.ajax({
+			method: 'GET',
+			url: '../../api/category/read_single.php?id=1',
+			dateType: 'json',
+		}).done(function (data) {
+			console.log(data);
+			$('#id').val(data.id);
+			$('#category_name').val(data.category_name);
+			$('#category_id').val(data.category_id);
+			
+		}).fail(function (jqXHR, statusText, errorThrown) {
+			console.log('fail: '+ jqXHR.responseText);
+			console.log(statusText);
+			console.log(errorThrown);
+		})
+
+	// Khang template
 	$('#add-btn').click(function(){
 		
 		var formData = JSON.stringify($('#add-cate').serializeObject());
 		console.log(formData);
 		$.ajax({
 			method: 'POST',
-			url: '../../api/category/create.php',
+			url: '../../api/category/update.php',
 			dateType: 'json',
 			data: formData,
 		}).done(function (data) {

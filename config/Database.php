@@ -2,7 +2,7 @@
 	class Database {
 		// parameters
 		private $host = 'localhost';
-		private $dbname = 'mysync';
+		private $dbname = 'branch_1';
 		private $username = 'root';
 		private $password = '';
 		private $conn;

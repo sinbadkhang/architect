@@ -4,32 +4,30 @@
 	header('Content-Type: application/json');
 
 	include_once '../../config/Database.php';
-	include_once '../../models/Product.php';
+	include_once '../../models/Category.php';
 
 	// start db and connect
 	$database = new Database();
 	$db = $database->connect();
 
-	// start product object
-	$product = new Product($db);
+	// start category object
+	$category = new Category($db);
 
 	// get id
-	$product->id = isset($_GET['id']) ? $_GET['id'] : die();
+	$category->id = isset($_GET['id']) ? $_GET['id'] : die();
 
-	// get product
-	$product->read_single();
+	// get category
+	$category->read_single();
 
 	// create array
-	$product_single_arr = array(
-		'id'=>$product->id,
-		'product_name'=>$product->product_name,
-		'category_name'=>$product->category_name,
-		'category_id'=>$product->category_id,
-		'quantity'=>$product->quantity,
-		'price'=>$product->price
+	$category_single_arr = array(
+		'id'=>$category->id,
+		'category_name'=>$category->category_name,
+		'category_id'=>$category->category_id
+		
 	);
 
 	// make json
-	print_r(json_encode($product_single_arr));
+	print_r(json_encode($category_single_arr));
 
 ?>

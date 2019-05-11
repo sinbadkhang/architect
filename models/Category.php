@@ -43,6 +43,7 @@
 				category_id
 				FROM
 				' . $this->table . ' 
+				WHERE
 				id=?
 				LIMIT 0,1';
 
