@@ -1,6 +1,6 @@
 <?php 
- 	// ACCOUNT
-	class ACCOUNT {
+ 	// account
+	class Account {
 		private $conn;
 		private $table = 'account';
 
@@ -16,7 +16,7 @@
 			$this->conn = $db;
 		}
 
-		// GET CATEGORIES
+		// GET ACCOUNTS
 		public function read(){
 			// query
 			$query = 'SELECT 
@@ -39,7 +39,7 @@
 			return $stmt;
 		}
 
-		// GET SINGLE ACCOUNT
+		// GET SINGLE account
 		public function read_single(){
 			$query = 'SELECT 
 				id,
@@ -72,7 +72,7 @@
 			$this->point = $row['point'];
 		}
 
-		// UPDATE ACCOUNT
+		// UPDATE account
 		public function update(){
 			// create query
 			$query = 'UPDATE '.$this->table.'
@@ -112,7 +112,7 @@
 			return false;
 		}
 
-		// ADD ACCOUNT
+		// ADD account
 		public function create(){
 			// create query
 			$query = 'INSERT INTO '.$this->table.'
@@ -148,7 +148,7 @@
 			return false;
 		}
 
-		// DELETE ACCOUNT
+		// DELETE account
 		public function delete(){
 			// create query
 			$query = 'DELETE FROM '.$this->table.' WHERE id = :id';
