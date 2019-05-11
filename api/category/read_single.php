@@ -24,7 +24,6 @@
 		'id'=>$category->id,
 		'category_name'=>$category->category_name,
 		'category_id'=>$category->category_id
-		
 	);
 
 	// make json
