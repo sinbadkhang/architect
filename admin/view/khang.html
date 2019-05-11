@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title></title>
+</head>
+<body>
+<!-- action="<?php echo $_SERVER['PHP_SELF'] ?>" -->
+	<form method='POST'  id='add-cate'>
+		
+		<div class="form-group">
+			<label for="name">Cate Name</label>
+			<input type="text" class="form-control view-input" name="category_name" id="category_name">
+		</div>
+		<div class="form-group">
+			<label for="code">Cate Code</label>
+			<input type="text" class="form-control view-input" name="category_id" id="category_id">
+		</div>
+		
+		<button type="button" class="btn btn-info" id='add-btn' >Add</button>
+	</form>
+	
+	<script
+  src="https://code.jquery.com/jquery-3.4.1.js"
+  integrity="sha256-WpOohJOqMqqyKL9FccASB9O0KwACQJpFTUBLTYOVvVU="
+  crossorigin="anonymous"></script>
+	<script src="../control/script_khang.js"></script>
+</body>
+</html>
