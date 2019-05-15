@@ -31,7 +31,7 @@ $(document).ready(function(){
 	    return o;
 	};
 
-	// Khang ajax get template
+	// GET template
 	$.ajax({
 			method: 'GET',
 			url: '../../api/category/read_single.php?id=1',
@@ -48,7 +48,7 @@ $(document).ready(function(){
 			console.log(errorThrown);
 		})
 
-	// Khang template
+	// ADD template
 	$('#add-btn').click(function(){
 		
 		var formData = JSON.stringify($('#add-cate').serializeObject());
@@ -68,6 +68,36 @@ $(document).ready(function(){
 		})
 	})
 	
+	// SYNC
+	$('#sync-btn').click(function(){
+		
+		$.ajax({
+			method: 'GET',
+			url: '../../api/category/read.php',
+			dateType: 'json',
+		}).done(function (data) {
+			console.log(data);
+
+			$.ajax({
+			method: 'POST',
+			url: '../../api/category/update.php',
+			dateType: 'json',
+			
+			}).done(function (data) {
+				console.log(data);
+				
+			}).fail(function (jqXHR, statusText, errorThrown) {
+				console.log('fail: '+ jqXHR.responseText);
+				console.log(statusText);
+				console.log(errorThrown);
+			})
+			
+		}).fail(function (jqXHR, statusText, errorThrown) {
+			console.log('fail: '+ jqXHR.responseText);
+			console.log(statusText);
+			console.log(errorThrown);
+		})
+	})
 		
 
 });
