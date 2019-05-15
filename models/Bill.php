@@ -74,6 +74,7 @@
 
 			$row = $stmt->fetch(PDO::FETCH_ASSOC);
 
+
 			// set properties
 			$this->id = $row['id'];
 			$this->created_date = $row['created_date'];
@@ -105,9 +106,10 @@
 			$stmt = $this->conn->prepare($query);
 
 			// clean data
+			$this->bill_info=json_encode($this->bill_info);
+
 			$this->id=htmlspecialchars(strip_tags($this->id));
 			$this->created_date=htmlspecialchars(strip_tags($this->created_date));
-			$this->bill_info=htmlspecialchars(strip_tags($this->bill_info));
 			$this->bill_id=htmlspecialchars(strip_tags($this->bill_id));
 			
 			$this->total_point=htmlspecialchars(strip_tags($this->total_point));
@@ -140,6 +142,7 @@
 
 		// create bill
 		public function create(){
+			// echo json_encode($bill_info);
 			// create query
 			$query = 'INSERT INTO '.$this->table.'
 				SET 
@@ -155,8 +158,9 @@
 			$stmt = $this->conn->prepare($query);
 
 			// clean data
+			$this->bill_info=json_encode($this->bill_info);
+
 			$this->created_date=htmlspecialchars(strip_tags($this->created_date));
-			$this->bill_info=htmlspecialchars(strip_tags($this->bill_info));
 			$this->bill_id=htmlspecialchars(strip_tags($this->bill_id));
 			
 			$this->total_point=htmlspecialchars(strip_tags($this->total_point));
@@ -164,9 +168,10 @@
 			$this->customer_name=htmlspecialchars(strip_tags($this->customer_name));
 			$this->cashier_name=htmlspecialchars(strip_tags($this->cashier_name));
 			
+			
 			// bind data
 			$stmt->bindParam(':created_date', $this->created_date);
-			$stmt->bindParam(':bill_info', $this->bill_info);
+			$stmt->bindParam(':bill_info', $this->bill_info);//
 			$stmt->bindParam(':bill_id', $this->bill_id);
 
 			$stmt->bindParam(':total_point', $this->total_point);
@@ -181,7 +186,6 @@
 
 			// print error
 			print('Error: %s.\n'. $stmt->error);
-
 			return false;
 		}
 

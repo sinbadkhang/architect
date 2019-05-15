@@ -1,4 +1,3 @@
-
 console.log('ok');
 
 var myVar;
@@ -8,8 +7,21 @@ function intervalFunc() {
   myVar = setInterval(syncFunc, 3000);
 };
 
-// 
+// SYNC DATABASE
 function syncFunc(){
+	// 1 GET DATA FROM BRANCH
+
+	// 2 SEND DATA TO HEAD
+
+	// 3 COMPARE DATA
+
+	// 4 HANDLE CONFLICT ON HEAD
+
+	// 5 GET DATA FROM HEAD 
+
+	// 6 SEND DATA BACK TO BRANCH
+
+	// 7 APPLY CHANGES
 	console.log('Sync successfully');
 };
 

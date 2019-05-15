@@ -24,4 +24,4 @@ $git commit -m "mô tả trong đây"
 $git pull
 $git push
 
-8. Có 2 database. Phần mọi người làm chỉ liên quan đến db1 (trong config/database.php)
+8. Có 1 database mẫu là branch_1. Khi làm đồng bộ dữ liệu, mọi người tạo thêm branch_2, head rồi import branch_1
