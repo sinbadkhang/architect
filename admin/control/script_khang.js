@@ -1,4 +1,3 @@
-
 console.log('ok');
 
 var myVar;
@@ -8,8 +7,21 @@ function intervalFunc() {
   myVar = setInterval(syncFunc, 3000);
 };
 
-// 
+// SYNC DATABASE
 function syncFunc(){
+	// 1 GET DATA FROM BRANCH
+
+	// 2 SEND DATA TO HEAD
+
+	// 3 COMPARE DATA
+
+	// 4 HANDLE CONFLICT ON HEAD
+
+	// 5 GET DATA FROM HEAD 
+
+	// 6 SEND DATA BACK TO BRANCH
+
+	// 7 APPLY CHANGES
 	console.log('Sync successfully');
 };
 
@@ -31,7 +43,7 @@ $(document).ready(function(){
 	    return o;
 	};
 
-	// Khang ajax get template
+	// GET template
 	$.ajax({
 			method: 'GET',
 			url: '../../api/category/read_single.php?id=1',
@@ -48,7 +60,7 @@ $(document).ready(function(){
 			console.log(errorThrown);
 		})
 
-	// Khang template
+	// ADD template
 	$('#add-btn').click(function(){
 		
 		var formData = JSON.stringify($('#add-cate').serializeObject());
@@ -68,6 +80,36 @@ $(document).ready(function(){
 		})
 	})
 	
+	// SYNC
+	$('#sync-btn').click(function(){
+		
+		$.ajax({
+			method: 'GET',
+			url: '../../api/category/read.php',
+			dateType: 'json',
+		}).done(function (data) {
+			console.log(data);
+
+			$.ajax({
+			method: 'POST',
+			url: '../../api/category/update.php',
+			dateType: 'json',
+			
+			}).done(function (data) {
+				console.log(data);
+				
+			}).fail(function (jqXHR, statusText, errorThrown) {
+				console.log('fail: '+ jqXHR.responseText);
+				console.log(statusText);
+				console.log(errorThrown);
+			})
+			
+		}).fail(function (jqXHR, statusText, errorThrown) {
+			console.log('fail: '+ jqXHR.responseText);
+			console.log(statusText);
+			console.log(errorThrown);
+		})
+	})
 		
 
 });
