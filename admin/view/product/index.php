@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    
     <meta charset="UTF-8">
     <title>Dashboard</title>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.css">
@@ -18,75 +19,179 @@
             margin-right: 15px;
         }
     </style>
-    <script type="text/javascript">
-        $(document).ready(function(){
-            $('[data-toggle="tooltip"]').tooltip();   
-        });
-    </script>
+   
 </head>
 <body>
-    
+     <div class="modal fade" id="up_product_Modal" role="dialog">
+    <div class="modal-dialog">
+      <!-- Modal content-->
+      <div class="modal-content">
+        <div class="modal-header" text-align="left">
+          <h4 class="modal-title">Update Product</h4>
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+        </div>
+        <div class="modal-body">
+          <form method="post" id="up-product-form">
+            <label>Id:</label>
+            <input type="text" name="id" id="up_id" class="form-control"/>
+            <label>Product id:</label>
+            <input type="text" name="product_id" id="up_product_id" class="form-control"/>
+            </br>
+            <label>Product Name:</label>
+            <input type="text" name="product_name" id="up_product_name" class="form-control"/>
+            </br>
+            <label>Category Id:</label>
+            <input type="text" name="category_id" id="up_category_id" class="form-control"/>
+            </br>
+            <label>Quantity:</label>
+            <input type="text" name="quantity" id="up_quantity" class="form-control"/>
+            </br>
+            <label>Price</label>
+            <input type="text" name="price" id="up_price" class="form-control" />
+          </form>
+        </div>
+        <div class="modal-footer">
+          <button type="button"  class=" btn btn-success" id="up-product-btn">Submit</button>
+          <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<!-- Product Table -->
     <div class="wrapper">
         <div class="container-fluid">
             <div class="row">
                 <div class="col-md-12">
-                    <div class="page-header clearfix">
-                        <h2 class="pull-left">Bảng Sản Phẩm</h2>
-                        <a href="create.php" class="btn btn-success pull-right">Thêm sản phẩm</a>
-                    </div>
-                    <?php
-                    // Include config file
-                    require_once "config.php";
-                    
-                    // Attempt select query execution
-                    $sql = "SELECT * FROM product";
-                    if($result = mysqli_query($link, $sql)){
-                        if(mysqli_num_rows($result) > 0){
-                            echo "<table class='table table-bordered table-striped'>";
-                                echo "<thead>";
-                                    echo "<tr>";
-                                        echo "<th>Id</th>";
-                                        echo "<th>Id Sản Phẩm</th>";
-                                        echo "<th>Tên Sản Phẩm</th>";
-                                        echo "<th>Loại</th>";
-                                        echo "<th>Số Lượng</th>";
-                                        echo "<th>Giá Tiền</th>";
-                                        echo "<th>Chỉnh sửa </th>";
-                                    echo "</tr>";
-                                echo "</thead>";
-                                echo "<tbody>";
-                                while($row = mysqli_fetch_array($result)){
-                                    echo "<tr>";
-                                        echo "<td>" . $row['id'] . "</td>";
-                                        echo "<td>" . $row['product_id'] . "</td>";
-                                        echo "<td>" . $row['product_name'] . "</td>";
-                                        echo "<td><center>" . $row['category_id'] . "</center></td>";
-                                         echo "<td><center>" . $row['quantity'] . "</center></td>";
-                                        echo "<td><center>" . $row['price'] . "</center></td>";
-                                        echo "<td>";
-                                            
-                                            echo "<center><a href='update.php?id=". $row['id'] ."' title='Update Record' data-toggle='tooltip'><span class='glyphicon glyphicon-pencil'></span></a><a href='delete.php?id=". $row['id'] ."' title='Delete Record' data-toggle='tooltip'><span class='glyphicon glyphicon-trash'></span></a></center>";
-                                           
-                                        echo "</td>";
-                                    echo "</tr>";
-                                }
-                                echo "</tbody>";                            
-                            echo "</table>";
-                            // Free result set
-                            mysqli_free_result($result);
-                        } else{
-                            echo "<p class='lead'><em>No records were found.</em></p>";
-                        }
-                    } else{
-                        echo "ERROR: Could not able to execute $sql. " . mysqli_error($link);
-                    }
- 
-                    // Close connection
-                    mysqli_close($link);
+                   
+                   <div >
+            <div >
+                <h2 ><center>Bảng sản phẩm</center></h2>
+              <table class="table table-bordered" id="productTable" width="100%" cellspacing="0">
+                <thead>
+                  <tr>
+                     <th>Id</th>
+                    <th>Product Id</th>
+                    <th>Product Name</th>
+                    <th>Category Id</th>
+                    <th>Quantity</th>
+                     <th>Price</th>
+                    <th><button  type="button" name="add" id="add" data-toggle="modal" data-target="#add_product_Modal" class="btn btn-success">Add New Account
+                  </button></th>
+                  </tr>
+                </thead>
+               
+                <tbody>
+                  <?php 
+                       require_once "config.php";
+                    $result  = mysqli_query($link ,'SELECT * FROM product');
+                      while($row=mysqli_fetch_array($result)){
+                  ?>
+                                <tr id="<?php echo $row['id']; ?>">
+                                  <td class="id"><?php echo $row['id']; ?></td>
+                                  <td class="product_id"><?php echo $row['product_id']; ?></td>
+                                  <td class="product_name"><?php echo $row['product_name']; ?></td>
+                                  <td class="category_id"><?php echo $row['category_id']; ?></td>
+                                  <td class="quantity"><?php echo $row['quantity']; ?></td>
+                                  <td class="price"><?php echo $row['price']; ?></td>
+                                  <td>
+                                      <a a href="#" data-role="update" data-id="<?php echo $row['id'] ;?>">
+                                          <button  type="button" data-toggle="modal" data-target="#up_product_Modal" class="btn btn-warning update-product">Sửa</button>
+                                           <button  type="button" data-toggle="modal" data-target="#delproduct_Modal" class="btn btn-primary delete-product">Xoá</button>
+                                      </a>
+                                     
+                                  </td>
+                                </tr>
+                    <?php 
+                      }
                     ?>
-                </div>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
             </div>        
         </div>
     </div>
+   
+
+ 
+ <!-- Add -->
+
+
+  <div class="modal fade" id="add_product_Modal" role="dialog">
+    <div class="modal-dialog">
+      <!-- Modal content-->
+      <div class="modal-content">
+        <div class="modal-header" text-align="left">
+          <h4 class="modal-title">ADD NEW PRODUCT</h4>
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+        </div>
+        <div class="modal-body">
+          <form method="POST" id="add-product-form">
+            <label>Product id:</label>
+            <input type="text" name="product_id" id="product_id" class="form-control"/>
+            </br>
+            <label>Product Name:</label>
+            <input type="text" name="product_name" id="product_name" class="form-control"/>
+            </br>
+            <label>Category Id:</label>
+            <input type="text" name="category_id" id="category_id" class="form-control"/>
+            </br>
+            <label>Quantity:</label>
+            <input type="text" name="quantity" id="quantity" class="form-control"/>
+            </br>
+            <label>Price</label>
+            <input type="text" name="price" id="price" class="form-control" />
+          </form>
+        </div>
+        <div class="modal-footer">
+          <button type="button"id="add-product-btn" class=" btn btn-success">Submit</button>
+          <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+
+<!-- delete product -->
+<div id="delproduct_Modal" class="modal fade" role="dialog">
+  <div class="modal-dialog">
+    <!-- Modal content-->
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+        <h4 class="modal-title"><i class="fa fa-trash"></i> Bạn có muốn xoá sản phẩm ?</h4>
+      </div>
+      <div class="modal-body">
+        <form method='POST' action="<?php echo $_SERVER['PHP_SELF'] ?>" id='delete-product-form'>
+          <input type="hidden" name="id" id="del-id">
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="submit" class="btn btn-danger" id='delete-product-btn'>Yes. Delete</button>
+        <button type="button" class="btn btn-default" data-dismiss="modal">No. Cancel</button>
+      </div>
+    </div>
+  </div>
+</div><!-- delete modal-->
+
+
+
+
+   <script
+  src="https://code.jquery.com/jquery-3.4.1.js"
+  integrity="sha256-WpOohJOqMqqyKL9FccASB9O0KwACQJpFTUBLTYOVvVU="
+  crossorigin="anonymous"></script>
+  <script src="../../control/script_tuan.js"></script>
+
 </body>
 </html>
+
+
+
