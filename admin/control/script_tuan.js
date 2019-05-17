@@ -53,7 +53,7 @@ function syncFunc(){
     $('#up_price').val(price);
      
     // UPDATE MODAL
-    $('#up_product_Modal').modal();
+    // $('#up_product_Modal').modal();
   })
     
 
@@ -114,7 +114,7 @@ $('#add-product-btn').click(function(){
        console.log(data);
       // HIDE MODAL
       $('#delproduct_Modal').modal('hide');
-      getProduct();
+      // getProduct();
     }).fail(function (jqXHR, statusText, errorThrown) {
       console.log('fail: '+ jqXHR.responseText);
       console.log(statusText);
@@ -133,5 +133,5 @@ $('#productTable tbody').on('click', '.delete-product', function () {
    
      
     // UPDATE MODAL
-    $('#delproduct_Modal').modal();
+    // $('#delproduct_Modal').modal();
   })
