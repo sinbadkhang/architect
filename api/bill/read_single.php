@@ -21,14 +21,14 @@
 
 	// create array
 	$bill_single_arr = array(
-		'id'=>$id,
-		'created_date'=>$created_date,
-		'bill_id'=>$bill_id,
-		'bill_info'=>$bill_info,
-		'customer_name'=>$customer_name,
-		'cashier_name'=>$cashier_name,
-		'total_price'=>$total_price,
-		'total_point'=>$total_point
+		'id'=>$bill->id,
+		'created_date'=>$bill->created_date,
+		'bill_id'=>$bill->bill_id,
+		'bill_info'=>$bill->bill_info,
+		'customer_name'=>$bill->customer_name,
+		'cashier_name'=>$bill->cashier_name,
+		'total_price'=>$bill->total_price,
+		'total_point'=>$bill->total_point
 	);
 
 	// make json

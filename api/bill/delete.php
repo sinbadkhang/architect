@@ -15,7 +15,6 @@
 	// start bill object
 	$bill = new Bill($db);
 
-
 	// get data
 	$data = json_decode(file_get_contents("php://input"));
 

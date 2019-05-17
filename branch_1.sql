@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Apr 28, 2019 at 01:04 PM
+-- Generation Time: May 13, 2019 at 04:38 AM
 -- Server version: 10.1.38-MariaDB
 -- PHP Version: 7.3.3
 
@@ -19,7 +19,7 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Database: `mysync`
+-- Database: `branch_1`
 --
 
 -- --------------------------------------------------------
@@ -46,7 +46,11 @@ CREATE TABLE `bill` (
   `id` int(11) NOT NULL,
   `bill_id` varchar(10) COLLATE utf8_unicode_ci NOT NULL,
   `bill_info` varchar(1000) COLLATE utf8_unicode_ci NOT NULL,
-  `created_date` datetime NOT NULL
+  `created_date` datetime NOT NULL,
+  `total_price` int(11) NOT NULL,
+  `total_point` int(11) NOT NULL,
+  `customer_name` varchar(30) COLLATE utf8_unicode_ci NOT NULL,
+  `cashier_name` varchar(30) COLLATE utf8_unicode_ci NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 -- --------------------------------------------------------
