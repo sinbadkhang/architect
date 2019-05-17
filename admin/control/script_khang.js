@@ -85,16 +85,16 @@ $(document).ready(function(){
 		
 		$.ajax({
 			method: 'GET',
-			url: '../../api/category/read.php',
+			url: '../../api/account/read.php',
 			dateType: 'json',
 		}).done(function (data) {
 			console.log(data);
 
 			$.ajax({
 			method: 'POST',
-			url: '../../api/category/update.php',
+			url: '../../api/account/create.php',
 			dateType: 'json',
-			
+			data: data
 			}).done(function (data) {
 				console.log(data);
 				

@@ -72,6 +72,29 @@
 			$this->point = $row['point'];
 		}
 
+		// GET NEW ACCOUNTS SINCE THE LATEST SYNC
+		// public function read_latest(){
+		// 	// query
+		// 	$query = 'SELECT 
+		// 		id,
+		// 		username,
+		// 		password,
+		// 		type,
+		// 		point
+		// 		FROM
+		// 		' . $this->table . '
+		// 		ORDER BY 
+		// 		type DESC';
+
+		// 	// prepare statement
+		// 	$stmt = $this->conn->prepare($query);
+
+		// 	// execute query
+		// 	$stmt->execute();
+
+		// 	return $stmt;
+		// }
+
 		// UPDATE account
 		public function update(){
 			// create query
