@@ -4,8 +4,7 @@
     <meta charset="UTF-8">
     <title>Categories</title>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.css">
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.js"></script>
+    
     <style type="text/css">
         .wrapper{
             width: 650px;
@@ -18,11 +17,11 @@
             margin-right: 15px;
         }
     </style>
-    <script type="text/javascript">
+   <!--  <script type="text/javascript">
         $(document).ready(function(){
             $('[data-toggle="tooltip"]').tooltip();   
         });
-    </script>
+    </script> -->
 </head>
 <body>
     
@@ -34,58 +33,112 @@
                 <div class="col-md-12">
                     <div class="page-header clearfix">
                         <h2 class="pull-left">Bảng Categories</h2>
-                        <a href="create.php" class="btn btn-success pull-right">Thêm Category</a>
+                        <a class="btn btn-success pull-right" data-toggle="modal" data-target="#add_cate_Modal">Thêm Category</a>
                     </div>
-                    <?php
-                    // Include config file
-                    require_once "config.php";
-                    
-                    // Attempt select query execution
-                    $sql = "SELECT * FROM category";
-                    if($result = mysqli_query($link, $sql)){
-                        if(mysqli_num_rows($result) > 0){
-
-                            echo "<table class='table table-bordered table-striped'>";
-                                echo "<thead>";
-                                    echo "<tr>";
-                                        echo "<th><center>Id</center></th>";
-                                        echo "<th><center>Category ID</center></th>";
-                                        echo "<th><center>Category Name</center></th>";
-                                        echo "<th><center>Chỉnh sửa</center> </th>";
-                                    echo "</tr>";
-                                echo "</thead>";
-                                echo "<tbody>";
-                                while($row = mysqli_fetch_array($result)){
-
-                                    echo "<tr>";
-                                        echo "<td><center>" . $row['id'] . "</center></td>";
-                                         echo "<td><center>" . $row['category_id'] . "</center></td>";
-                                        echo "<td><center>" . $row['category_name'] . "</center></td>";
-                                        echo "<td>";  
-                                            echo "<center><a href='update.php?id=". $row['id'] ."' title='Update Record' data-toggle='tooltip'><span class='glyphicon glyphicon-pencil'></span></a><a href='delete.php?id=". $row['id'] ."' title='Delete Record' data-toggle='tooltip'><span class='glyphicon glyphicon-trash'></span></a></center>";
-                                           
-                                        echo "</td>";
-                                    echo "</tr>";
-                                }
-                                echo "</tbody>";                            
-                            echo "</table>";
-                            // Free result set
-                            mysqli_free_result($result);
-                        } else{
-                            echo "<p class='lead'><em>No records were found.</em></p>";
-                        }
-                    } else{
-                        echo "ERROR: Could not able to execute $sql. " . mysqli_error($link);
-                    }
- 
-                    // Close connection
-                    mysqli_close($link);
-                    ?>
+                    <table id="cate-table" class="table table-bordered table-striped">
+                        <thead>
+                            <th>ID</th>
+                            <th>Category ID</th>
+                            <th>Category Name</th>
+                            <th>Option</th>
+                        </thead>
+                        <tbody>
+                            
+                        </tbody>
+                        <tfoot>
+                            <th>ID</th>
+                            <th>Category ID</th>
+                            <th>Category Name</th>
+                            <th>Option</th>
+                        </tfoot>
+                    </table>
                 </div>
             </div>        
         </div>
     </div>
+
+    <!-- ADD MODAL -->
+    <div class="modal fade" id="add_cate_Modal" role="dialog">
+    <div class="modal-dialog">
+      <!-- Modal content-->
+      <div class="modal-content">
+        <div class="modal-header" text-align="left">
+          <h4 class="modal-title">ADD NEW CATEGORY</h4>
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+        </div>
+        <div class="modal-body">
+          <form method="post" id="add-cate-form">
+            <label>Category ID:</label>
+            <input type="text" name="category_id" id="category_id" class="form-control"/>
+            </br>
+             <label>Category Name:</label>
+            <input type="text" name="category_name" id="category_name" class="form-control"/>
+            </br>
+          </form>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-success " id="add-cate-btn">Submit</button>
+          <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+ <!-- UPDATE MODAL -->
+
+    <div class="modal fade" id="up_cate_Modal" role="dialog">
+    <div class="modal-dialog">
+      <!-- Modal content-->
+      <div class="modal-content">
+        <div class="modal-header" text-align="left">
+          <h4 class="modal-title">EDIT CATEGORY</h4>
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+        </div>
+        <div class="modal-body">
+          <form method="post" id="up-cate-form">
+            <label>Category ID:</label>
+            <input type="text" name="category_id" id="edit_category_id"  class="edit_category_id form-control" />
+            </br>
+             <label>Category Name:</label>
+            <input type="text" name="category_name" id="edit_category_name" class="edit_category_name form-control" />
+            </br>
+             <input type="hidden" name="id" id="up-id">
+          </form>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-success " id="up-cate-btn">Submit</button>
+          <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!--  DELETE PRODUCT MODAL -->
+
+<div id="delcate_Modal" class="modal fade" role="dialog">
+  <div class="modal-dialog">
+    <!-- Modal content-->
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+        <h4 class="modal-title"><i class="fa fa-trash"></i> Bạn có muốn xoá sản phẩm ?</h4>
+      </div>
+      <div class="modal-body">
+        <form method='POST' action="<?php echo $_SERVER['PHP_SELF'] ?>" id='delete-cate-form'>
+          <input type="hidden" name="id" id="del-id">
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="submit" class="btn btn-danger" id='delete-cate-btn'>Yes. Delete</button>
+        <button type="button" class="btn btn-default" data-dismiss="modal">No. Cancel</button>
+      </div>
+    </div>
+  </div>
+</div><!-- delete modal-->
 </body>
+
 <style type="text/css">
     h1 {
   font-family: "Arial Black", Gadget, sans-serif
@@ -95,4 +148,10 @@
 
    
 </style>
+<script
+  src="https://code.jquery.com/jquery-3.4.1.js"
+  integrity="sha256-WpOohJOqMqqyKL9FccASB9O0KwACQJpFTUBLTYOVvVU="
+  crossorigin="anonymous"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.js"></script>
+<script type="text/javascript" src="khoiscript.js"></script>
 </html>

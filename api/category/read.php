@@ -35,7 +35,7 @@
 			);
 
 			// push to data array
-			array_push($category_arr['data'], $category_item);
+			array_push(	$category_arr['data'], $category_item);
 		}
 
 		// into json
