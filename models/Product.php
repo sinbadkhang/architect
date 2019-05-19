@@ -34,7 +34,7 @@
 				LEFT JOIN 
 				category c ON p.category_id = c.category_id
 				ORDER BY 
-				c.category_name DESC';
+				p.id ASC';
 
 			// prepare statement
 			$stmt = $this->conn->prepare($query);

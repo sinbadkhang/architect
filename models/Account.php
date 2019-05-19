@@ -28,7 +28,7 @@
 				FROM
 				' . $this->table . '
 				ORDER BY 
-				type DESC';
+				id ASC';
 
 			// prepare statement
 			$stmt = $this->conn->prepare($query);

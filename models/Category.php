@@ -24,7 +24,7 @@
 				FROM
 				' . $this->table . '
 				ORDER BY 
-				category_name DESC';
+				id ASC';
 
 			// prepare statement
 			$stmt = $this->conn->prepare($query);

@@ -35,7 +35,7 @@
 				FROM
 				' . $this->table . ' 
 				ORDER BY 
-				bill_id DESC';
+				id ASC';
 
 			// prepare statement
 			$stmt = $this->conn->prepare($query);
