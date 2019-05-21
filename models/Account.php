@@ -73,27 +73,35 @@
 		}
 
 		// GET NEW ACCOUNTS SINCE THE LATEST SYNC
-		// public function read_latest(){
-		// 	// query
-		// 	$query = 'SELECT 
-		// 		id,
-		// 		username,
-		// 		password,
-		// 		type,
-		// 		point
-		// 		FROM
-		// 		' . $this->table . '
-		// 		ORDER BY 
-		// 		type DESC';
+		public function read_latest(){
+			// query
+			$q = 'SELECT server_version FROM sync_log ORDER BY id DESC LIMIT 1';
 
-		// 	// prepare statement
-		// 	$stmt = $this->conn->prepare($query);
+			$query = 'SELECT 
+				l.account_id,
+				a.username,
+				a.password,
+				a.type,
+				a.point,
+				l.version,
+				l.operation
+				FROM
+				account_log l
+				LEFT JOIN
+				' . $this->table . ' a
+				ON a.id = l.account_id
+				WHERE l.version = ('.$q.')
+				ORDER BY 
+				l.id ASC';
 
-		// 	// execute query
-		// 	$stmt->execute();
+			// prepare statement
+			$stmt = $this->conn->prepare($query);
 
-		// 	return $stmt;
-		// }
+			// execute query
+			$stmt->execute();
+
+			return $stmt;
+		}
 
 		// UPDATE account
 		public function update(){
@@ -159,7 +167,7 @@
 			$stmt->bindParam(':password', $this->password);
 			$stmt->bindParam(':type', $this->type);
 			$stmt->bindParam(':point', $this->point);
-
+			
 			// execute query
 			if($stmt->execute()){
 				return true;
