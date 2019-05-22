@@ -22,7 +22,7 @@
 	$bill->id=$data->id;
 
 	$bill->bill_info=$data->bill_info;
-	$bill->bill_id=$data->bill_id;
+	$bill->bill_code=$data->bill_code;
 	$bill->customer_name=$data->customer_name;
 	$bill->cashier_name=$data->cashier_name;
 

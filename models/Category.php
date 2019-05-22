@@ -1,10 +1,10 @@
 <?php 
- 	// CATEGORY
+ 	// CLASS CATEGORY
 	class Category {
 		private $conn;
 		private $table = 'category';
 
-		// PROPERTIES
+		// properties
 		public $id;
 		public $category_id;
 		public $category_name;
@@ -23,6 +23,35 @@
 				category_id
 				FROM
 				' . $this->table . '
+				ORDER BY 
+				id ASC';
+
+			// prepare statement
+			$stmt = $this->conn->prepare($query);
+
+			// execute query
+			$stmt->execute();
+
+			return $stmt;
+		}
+
+		// GET NEW CATEGORIES SINCE THE LATEST SYNC
+		public function read_latest(){
+			// query
+			$q = 'SELECT server_version FROM sync_log ORDER BY id DESC LIMIT 1';
+
+			$query = 'SELECT 
+				l.category_id as id,
+				a.category_id,
+				a.category_name,
+				l.version,
+				l.operation
+				FROM
+				category_log l
+				LEFT JOIN
+				' . $this->table . ' a
+				ON a.id = l.category_id
+				WHERE l.version = ('.$q.')
 				ORDER BY 
 				id ASC';
 

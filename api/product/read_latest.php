@@ -14,7 +14,7 @@
 	$product = new Product($db);
 
 	// product query
-	$result = $product->read();
+	$result = $product->read_latest();
 
 	// get row count
 	$num = $result->rowCount();
@@ -35,7 +35,9 @@
 				'category_id'=>$category_id,
 				'category_name'=>$category_name,
 				'quantity'=>$quantity,
-				'price'=>$price
+				'price'=>$price,
+				'version'=>$version,
+				'operation'=>$operation
 			);
 
 			// push to data array

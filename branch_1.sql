@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: May 21, 2019 at 04:43 PM
+-- Generation Time: May 22, 2019 at 08:05 AM
 -- Server version: 10.1.38-MariaDB
 -- PHP Version: 7.3.3
 
@@ -93,7 +93,7 @@ INSERT INTO `account_log` (`id`, `version`, `account_id`, `operation`) VALUES
 
 CREATE TABLE `bill` (
   `id` int(11) NOT NULL,
-  `bill_id` varchar(10) COLLATE utf8_unicode_ci NOT NULL,
+  `bill_code` varchar(10) COLLATE utf8_unicode_ci NOT NULL,
   `bill_info` varchar(1000) COLLATE utf8_unicode_ci NOT NULL,
   `created_date` datetime NOT NULL,
   `total_price` int(11) NOT NULL,
@@ -106,14 +106,13 @@ CREATE TABLE `bill` (
 -- Dumping data for table `bill`
 --
 
-INSERT INTO `bill` (`id`, `bill_id`, `bill_info`, `created_date`, `total_price`, `total_point`, `customer_name`, `cashier_name`) VALUES
-(14, 'bq231', '[{\"product_name\":\"coca cola\",\"quantity\":\"123\"}]', '0000-00-00 00:00:00', 111111, 12312, 'khang', 'awda'),
+INSERT INTO `bill` (`id`, `bill_code`, `bill_info`, `created_date`, `total_price`, `total_point`, `customer_name`, `cashier_name`) VALUES
+(14, 'bq231', '[{\"product_name\":\"coca cola\",\"quantity\":\"123\"}]', '0000-00-00 00:00:00', 222, 12312, 'khang', 'awda'),
 (15, 'bq231', '[{\"product_name\":\"coca cola\",\"quantity\":\"123\"}]', '0000-00-00 00:00:00', 111111, 12312, 'khang', 'awda'),
-(18, 'bq231', '[{\"product_name\":\"coca cola\",\"quantity\":\"132123\"}]', '0000-00-00 00:00:00', 111111, 12312, 'khang', 'awda'),
 (19, 'bq231', '[{\"product_name\":\"coca cola\",\"quantity\":\"132123\"}]', '0000-00-00 00:00:00', 111111, 12312, 'khang', 'awda'),
-(20, 'bq231', '[{\"product_name\":\"coca cola\",\"quantity\":\"132123\"}]', '0000-00-00 00:00:00', 111111, 12312, 'khang', 'awda'),
 (21, 'bq231', '[{\"product_name\":\"coca cola\",\"quantity\":\"132123\"}]', '0000-00-00 00:00:00', 111111, 12312, 'khang', 'awda'),
-(22, 'bq231', '[{\"product_name\":\"coca\",\"quantity\":\"132123\"}]', '0000-00-00 00:00:00', 111111, 12312, 'khang', 'awda');
+(22, 'bq231', '[{\"product_name\":\"coca\",\"quantity\":\"132123\"}]', '0000-00-00 00:00:00', 111111, 12312, 'khang', 'awda'),
+(23, '6969', '\"[{\\\"product_name\\\":\\\"coca cola\\\",\\\"quantity\\\":\\\"123\\\"}]\"', '0000-00-00 00:00:00', 222, 12312, 'test api update', 'awda');
 
 --
 -- Triggers `bill`
@@ -144,6 +143,17 @@ CREATE TABLE `bill_log` (
   `operation` varchar(10) COLLATE utf8_unicode_ci NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
+--
+-- Dumping data for table `bill_log`
+--
+
+INSERT INTO `bill_log` (`id`, `version`, `bill_id`, `operation`) VALUES
+(1, 1, 18, 'delete'),
+(2, 1, 14, 'update'),
+(3, 1, 23, 'insert'),
+(4, 1, 23, 'update'),
+(5, 1, 20, 'delete');
+
 -- --------------------------------------------------------
 
 --
@@ -152,7 +162,7 @@ CREATE TABLE `bill_log` (
 
 CREATE TABLE `category` (
   `id` int(11) NOT NULL,
-  `category_id` int(11) NOT NULL,
+  `category_code` int(11) NOT NULL,
   `category_name` varchar(30) COLLATE utf8_unicode_ci NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
@@ -160,9 +170,10 @@ CREATE TABLE `category` (
 -- Dumping data for table `category`
 --
 
-INSERT INTO `category` (`id`, `category_id`, `category_name`) VALUES
+INSERT INTO `category` (`id`, `category_code`, `category_name`) VALUES
 (1, 123, 'drink'),
-(2, 135, 'suka');
+(2, 135, 'suka'),
+(3, 159, 'test trigger');
 
 --
 -- Triggers `category`
@@ -193,6 +204,14 @@ CREATE TABLE `category_log` (
   `operation` varchar(10) COLLATE utf8_unicode_ci NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
+--
+-- Dumping data for table `category_log`
+--
+
+INSERT INTO `category_log` (`id`, `version`, `category_id`, `operation`) VALUES
+(1, 1, 3, 'insert'),
+(2, 1, 2, 'update');
+
 -- --------------------------------------------------------
 
 --
@@ -201,7 +220,7 @@ CREATE TABLE `category_log` (
 
 CREATE TABLE `product` (
   `id` int(11) NOT NULL,
-  `product_id` varchar(10) COLLATE utf8_unicode_ci NOT NULL,
+  `product_code` varchar(10) COLLATE utf8_unicode_ci NOT NULL,
   `product_name` varchar(30) COLLATE utf8_unicode_ci NOT NULL,
   `category_id` int(11) NOT NULL,
   `quantity` int(11) NOT NULL,
@@ -212,8 +231,9 @@ CREATE TABLE `product` (
 -- Dumping data for table `product`
 --
 
-INSERT INTO `product` (`id`, `product_id`, `product_name`, `category_id`, `quantity`, `price`) VALUES
-(1, '123', 'coca cola', 123, 5000, 8000);
+INSERT INTO `product` (`id`, `product_code`, `product_name`, `category_id`, `quantity`, `price`) VALUES
+(1, '123', 'coca cola', 123, 5000, 8000),
+(2, 'trg upd', 'test trg', 135, 1, 2);
 
 --
 -- Triggers `product`
@@ -227,7 +247,7 @@ CREATE TRIGGER `trg_pro_ins` AFTER INSERT ON `product` FOR EACH ROW INSERT INTO 
 $$
 DELIMITER ;
 DELIMITER $$
-CREATE TRIGGER `trg_pro_upd` AFTER UPDATE ON `product` FOR EACH ROW INSERT INTO category_log VALUES(null,(SELECT server_version FROM sync_log ORDER BY id DESC LIMIT 1), NEW.id, 'update')
+CREATE TRIGGER `trg_pro_upd` AFTER UPDATE ON `product` FOR EACH ROW INSERT INTO product_log VALUES(null,(SELECT server_version FROM sync_log ORDER BY id DESC LIMIT 1), NEW.id, 'update')
 $$
 DELIMITER ;
 
@@ -243,6 +263,14 @@ CREATE TABLE `product_log` (
   `product_id` int(11) NOT NULL,
   `operation` varchar(10) COLLATE utf8_unicode_ci NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+--
+-- Dumping data for table `product_log`
+--
+
+INSERT INTO `product_log` (`id`, `version`, `product_id`, `operation`) VALUES
+(1, 1, 2, 'insert'),
+(2, 1, 2, 'update');
 
 -- --------------------------------------------------------
 
@@ -296,7 +324,7 @@ ALTER TABLE `bill_log`
 --
 ALTER TABLE `category`
   ADD PRIMARY KEY (`id`),
-  ADD KEY `category_id` (`category_id`);
+  ADD KEY `category_id` (`category_code`);
 
 --
 -- Indexes for table `category_log`
@@ -343,37 +371,37 @@ ALTER TABLE `account_log`
 -- AUTO_INCREMENT for table `bill`
 --
 ALTER TABLE `bill`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=23;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=24;
 
 --
 -- AUTO_INCREMENT for table `bill_log`
 --
 ALTER TABLE `bill_log`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT for table `category`
 --
 ALTER TABLE `category`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT for table `category_log`
 --
 ALTER TABLE `category_log`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `product`
 --
 ALTER TABLE `product`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `product_log`
 --
 ALTER TABLE `product_log`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `sync_log`
@@ -389,7 +417,7 @@ ALTER TABLE `sync_log`
 -- Constraints for table `product`
 --
 ALTER TABLE `product`
-  ADD CONSTRAINT `product_ibfk_1` FOREIGN KEY (`category_id`) REFERENCES `category` (`category_id`);
+  ADD CONSTRAINT `product_ibfk_1` FOREIGN KEY (`category_id`) REFERENCES `category` (`category_code`);
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

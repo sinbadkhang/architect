@@ -23,7 +23,7 @@
 	$bill_single_arr = array(
 		'id'=>$bill->id,
 		'created_date'=>$bill->created_date,
-		'bill_id'=>$bill->bill_id,
+		'bill_code'=>$bill->bill_code,
 		'bill_info'=>$bill->bill_info,
 		'customer_name'=>$bill->customer_name,
 		'cashier_name'=>$bill->cashier_name,

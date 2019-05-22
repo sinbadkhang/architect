@@ -1,5 +1,5 @@
 <?php 
- 	// post = product
+ 	// CLASS PRODUCT
 	class Product {
 		private $conn;
 		private $table = 'product';
@@ -18,7 +18,7 @@
 			$this->conn = $db;
 		}
 
-		// get products
+		// GET PRODUCTS
 		public function read(){
 			// query
 			$query = 'SELECT 
@@ -45,10 +45,58 @@
 			return $stmt;
 		}
 
-		// get single product
+		// GET NEW PRODUCTS SINCE THE LATEST SYNC
+		public function read_latest(){
+			// query
+			$q = 'SELECT server_version FROM sync_log ORDER BY id DESC LIMIT 1';
+
+			$query = 'SELECT
+				l.id,
+				t.product_id,
+				t.product_name,
+				t.category_id,
+				t.category_name,
+				t.quantity,
+				t.price,
+				l.version,
+				l.operation
+				FROM
+				product_log l
+				LEFT JOIN
+					(
+					SELECT
+					c.category_name,
+					p.id,
+					p.category_id,
+					p.product_id,
+					p.product_name,
+					p.quantity,
+					p.price
+					FROM
+					' . $this->table . ' p
+					LEFT JOIN 
+					category c ON p.category_id = c.category_id
+					ORDER BY 
+					p.id ASC
+					) t
+				ON t.id = l.product_id
+				WHERE l.version = ('.$q.')
+				ORDER BY 
+				id ASC';
+
+			// prepare statement
+			$stmt = $this->conn->prepare($query);
+
+			// execute query
+			$stmt->execute();
+
+			return $stmt;
+		}
+
+		// GET SINGLE PRODUCT
 		public function read_single(){
 			$query = 'SELECT 
-				c.category_name as category_name,
+				c.category_name,
 				p.id,
 				p.category_id,
 				p.product_id,
@@ -83,7 +131,7 @@
 			$this->price = $row['price'];
 		}
 
-		// update product
+		// UPDATE PRODUCT
 		public function update(){
 			// create query
 			$query = 'UPDATE '.$this->table.'
@@ -126,7 +174,7 @@
 			return false;
 		}
 
-		// create product
+		// ADD PRODUCT
 		public function create(){
 			// create query
 			$query = 'INSERT INTO '.$this->table.'
@@ -166,7 +214,7 @@
 			return false;
 		}
 
-		// delete product
+		// DELETE PRODUCT
 		public function delete(){
 			// create query
 			$query = 'DELETE FROM '.$this->table.' WHERE id = :id';

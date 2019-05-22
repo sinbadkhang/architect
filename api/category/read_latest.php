@@ -4,50 +4,48 @@
 	header('Content-Type: application/json');
 
 	include_once '../../config/Database.php';
-	include_once '../../models/Product.php';
+	include_once '../../models/Category.php';
 
 	// start db and connect
 	$database = new Database();
 	$db = $database->connect();
 
-	// start product object
-	$product = new Product($db);
+	// start category object
+	$category = new Category($db);
 
-	// product query
-	$result = $product->read();
+	// category query
+	$result = $category->read_latest();
 
 	// get row count
 	$num = $result->rowCount();
 
-	// check if any product
+	// check if any category
 	if($num > 0){
-		// product array
-		$product_arr = array();
-		$product_arr['data'] = array();
+		// category array
+		$category_arr = array();
+		$category_arr['data'] = array();
 
 		while($row = $result->fetch(PDO::FETCH_ASSOC)){
 			extract($row);
 
-			$product_item = array(
+			$category_item = array(
 				'id'=>$id,
-				'product_id'=>$product_id,
-				'product_name'=>$product_name,
 				'category_id'=>$category_id,
 				'category_name'=>$category_name,
-				'quantity'=>$quantity,
-				'price'=>$price
+				'version'=>$version,
+				'operation'=>$operation
 			);
 
 			// push to data array
-			array_push($product_arr['data'], $product_item);
+			array_push(	$category_arr['data'], $category_item);
 		}
 
 		// into json
-		echo json_encode($product_arr);
+		echo json_encode($category_arr);
 	}else{
-		// no product
+		// no category
 		echo json_encode(
-			array('message' => 'No product found')
+			array('message' => 'No category found')
 		);
 	}
 

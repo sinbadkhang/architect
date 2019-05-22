@@ -14,7 +14,7 @@
 	$bill = new Bill($db);
 
 	// bill query
-	$result = $bill->read();
+	$result = $bill->read_latest();
 
 	// get row count
 	$num = $result->rowCount();
@@ -30,13 +30,16 @@
 
 			$bill_item = array(
 				'id'=>$id,
-				'created_date'=>$created_date,
 				'bill_id'=>$bill_id,
+				'bill_code'=>$bill_code,
 				'bill_info'=>$bill_info,
+				'created_date'=>$created_date,
 				'customer_name'=>$customer_name,
 				'cashier_name'=>$cashier_name,
 				'total_price'=>$total_price,
-				'total_point'=>$total_point
+				'total_point'=>$total_point,
+				'version'=>$version,
+				'operation'=>$operation
 			);
 
 			// push to data array

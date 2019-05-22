@@ -31,7 +31,7 @@
 			$bill_item = array(
 				'id'=>$id,
 				'created_date'=>$created_date,
-				'bill_id'=>$bill_id,
+				'bill_code'=>$bill_code,
 				'bill_info'=>$bill_info,
 				'customer_name'=>$customer_name,
 				'cashier_name'=>$cashier_name,

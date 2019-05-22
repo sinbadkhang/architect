@@ -1,5 +1,5 @@
 <?php 
- 	// account
+ 	// CLASS ACCOUNT
 	class Account {
 		private $conn;
 		private $table = 'account';
@@ -39,7 +39,7 @@
 			return $stmt;
 		}
 
-		// GET SINGLE account
+		// GET SINGLE ACCOUNT
 		public function read_single(){
 			$query = 'SELECT 
 				id,
@@ -103,7 +103,7 @@
 			return $stmt;
 		}
 
-		// UPDATE account
+		// UPDATE ACCOUNT
 		public function update(){
 			// create query
 			$query = 'UPDATE '.$this->table.'
@@ -143,7 +143,7 @@
 			return false;
 		}
 
-		// ADD account
+		// ADD ACCOUNT
 		public function create(){
 			// create query
 			$query = 'INSERT INTO '.$this->table.'
@@ -179,7 +179,7 @@
 			return false;
 		}
 
-		// DELETE account
+		// DELETE ACCOUNT
 		public function delete(){
 			// create query
 			$query = 'DELETE FROM '.$this->table.' WHERE id = :id';
