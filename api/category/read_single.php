@@ -23,7 +23,7 @@
 	$category_single_arr = array(
 		'id'=>$category->id,
 		'category_name'=>$category->category_name,
-		'category_id'=>$category->category_id
+		'category_code'=>$category->category_code
 	);
 
 	// make json

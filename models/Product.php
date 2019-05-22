@@ -6,9 +6,9 @@
 
 		// propertiess
 		public $id;
-		public $product_id;
+		public $product_code;
 		public $product_name;
-		public $category_id;
+		public $category_code;
 		public $category_name;
 		public $quantity;
 		public $price;
@@ -24,15 +24,15 @@
 			$query = 'SELECT 
 				c.category_name as category_name,
 				p.id,
-				p.category_id,
-				p.product_id,
+				p.category_code,
+				p.product_code,
 				p.product_name,
 				p.quantity,
 				p.price
 				FROM
 				' . $this->table . ' p
 				LEFT JOIN 
-				category c ON p.category_id = c.category_id
+				category c ON p.category_code = c.category_code
 				ORDER BY 
 				p.id ASC';
 
@@ -53,8 +53,9 @@
 			$query = 'SELECT
 				l.id,
 				t.product_id,
+				t.product_code,
 				t.product_name,
-				t.category_id,
+				t.category_code,
 				t.category_name,
 				t.quantity,
 				t.price,
@@ -66,20 +67,20 @@
 					(
 					SELECT
 					c.category_name,
-					p.id,
-					p.category_id,
-					p.product_id,
+					p.id as product_id,
+					p.category_code,
+					p.product_code,
 					p.product_name,
 					p.quantity,
 					p.price
 					FROM
 					' . $this->table . ' p
 					LEFT JOIN 
-					category c ON p.category_id = c.category_id
+					category c ON p.category_code = c.category_code
 					ORDER BY 
 					p.id ASC
 					) t
-				ON t.id = l.product_id
+				ON t.product_id = l.product_id
 				WHERE l.version = ('.$q.')
 				ORDER BY 
 				id ASC';
@@ -96,17 +97,17 @@
 		// GET SINGLE PRODUCT
 		public function read_single(){
 			$query = 'SELECT 
-				c.category_name,
+				c.category_name as category_name,
 				p.id,
-				p.category_id,
-				p.product_id,
+				p.category_code,
+				p.product_code,
 				p.product_name,
 				p.quantity,
 				p.price
 				FROM
 				' . $this->table . ' p
 				LEFT JOIN 
-				category c ON p.category_id = c.category_id
+				category c ON p.category_code = c.category_code
 				WHERE
 				p.id=?
 				LIMIT 0,1';
@@ -125,8 +126,9 @@
 			// set properties
 			$this->id = $row['id'];
 			$this->category_name = $row['category_name'];
-			$this->category_id = $row['category_id'];
+			$this->category_code = $row['category_code'];
 			$this->product_name = $row['product_name'];
+			$this->product_code = $row['product_code'];
 			$this->quantity = $row['quantity'];
 			$this->price = $row['price'];
 		}
@@ -137,8 +139,8 @@
 			$query = 'UPDATE '.$this->table.'
 				SET 
 				product_name = :product_name,
-				product_id = :product_id,
-				category_id = :category_id,
+				product_code = :product_code,
+				category_code = :category_code,
 				quantity = :quantity,
 				price = :price
 				WHERE
@@ -149,16 +151,16 @@
 
 			// clean data
 			$this->product_name=htmlspecialchars(strip_tags($this->product_name));
-			$this->product_id=htmlspecialchars(strip_tags($this->product_id));
-			$this->category_id=htmlspecialchars(strip_tags($this->category_id));
+			$this->product_code=htmlspecialchars(strip_tags($this->product_code));
+			$this->category_code=htmlspecialchars(strip_tags($this->category_code));
 			$this->quantity=htmlspecialchars(strip_tags($this->quantity));
 			$this->price=htmlspecialchars(strip_tags($this->price));
 			$this->id=htmlspecialchars(strip_tags($this->id));
 
 			// bind data
 			$stmt->bindParam(':product_name', $this->product_name);
-			$stmt->bindParam(':product_id', $this->product_id);
-			$stmt->bindParam(':category_id', $this->category_id);
+			$stmt->bindParam(':product_code', $this->product_code);
+			$stmt->bindParam(':category_code', $this->category_code);
 			$stmt->bindParam(':quantity', $this->quantity);
 			$stmt->bindParam(':price', $this->price);
 			$stmt->bindParam(':id', $this->id);
@@ -180,8 +182,8 @@
 			$query = 'INSERT INTO '.$this->table.'
 				SET 
 				product_name = :product_name,
-				product_id = :product_id,
-				category_id = :category_id,
+				product_code = :product_code,
+				category_code = :category_code,
 				quantity = :quantity,
 				price = :price';
 
@@ -190,15 +192,15 @@
 
 			// clean data
 			$this->product_name=htmlspecialchars(strip_tags($this->product_name));
-			$this->product_id=htmlspecialchars(strip_tags($this->product_id));
-			$this->category_id=htmlspecialchars(strip_tags($this->category_id));
+			$this->product_code=htmlspecialchars(strip_tags($this->product_code));
+			$this->category_code=htmlspecialchars(strip_tags($this->category_code));
 			$this->quantity=htmlspecialchars(strip_tags($this->quantity));
 			$this->price=htmlspecialchars(strip_tags($this->price));
 
 			// bind data
 			$stmt->bindParam(':product_name', $this->product_name);
-			$stmt->bindParam(':product_id', $this->product_id);
-			$stmt->bindParam(':category_id', $this->category_id);
+			$stmt->bindParam(':product_code', $this->product_code);
+			$stmt->bindParam(':category_code', $this->category_code);
 			$stmt->bindParam(':quantity', $this->quantity);
 			$stmt->bindParam(':price', $this->price);
 

@@ -21,7 +21,7 @@
 	// set id to update
 	$category->id=$data->id;
 	
-	$category->category_id=$data->category_id;
+	$category->category_code=$data->category_code;
 	$category->category_name=$data->category_name;
 
 	// update category

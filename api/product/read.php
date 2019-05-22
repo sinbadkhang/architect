@@ -30,10 +30,10 @@
 
 			$product_item = array(
 				'id'=>$id,
-				'product_id'=>$product_id,
+				'product_code'=>$product_code,
 				'product_name'=>$product_name,
-				'category_id'=>$category_id,
 				'category_name'=>$category_name,
+				'category_code'=>$category_code,
 				'quantity'=>$quantity,
 				'price'=>$price
 			);

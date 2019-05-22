@@ -19,7 +19,7 @@
 	$data = json_decode(file_get_contents("php://input"));
 
 	$category->category_name=$data->category_name;
-	$category->category_id=$data->category_id;
+	$category->category_code=$data->category_code;
 
 	// create category
 	if($category->create()){ 

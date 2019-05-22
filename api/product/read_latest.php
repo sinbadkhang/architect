@@ -31,8 +31,9 @@
 			$product_item = array(
 				'id'=>$id,
 				'product_id'=>$product_id,
+				'product_code'=>$product_code,
 				'product_name'=>$product_name,
-				'category_id'=>$category_id,
+				'category_code'=>$category_code,
 				'category_name'=>$category_name,
 				'quantity'=>$quantity,
 				'price'=>$price,
