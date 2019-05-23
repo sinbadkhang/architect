@@ -17,11 +17,6 @@
             margin-right: 15px;
         }
     </style>
-   <!--  <script type="text/javascript">
-        $(document).ready(function(){
-            $('[data-toggle="tooltip"]').tooltip();   
-        });
-    </script> -->
 </head>
 <body>
     
@@ -34,8 +29,10 @@
                     <div class="page-header clearfix">
                         <h2 class="pull-left">Bảng Categories</h2>
                         <a class="btn btn-success pull-right" data-toggle="modal" data-target="#add_cate_Modal">Thêm Category</a>
-                        <a class="btn btn-info pull-center" data-toggle ="" data-target="">Đồng bộ hóa</a>
-                    </div>
+
+                        <a class="btn btn-info pull-right" data-toggle ="" data-target="">Đồng bộ hóa</a>
+                   
+
                     <table id="cate-table" class="table table-bordered table-striped">
                         <thead>
                             <th>ID</th>
@@ -57,8 +54,10 @@
             </div>        
         </div>
     </div>
+</div>
 
-    <!-- ADD MODAL -->
+
+    <!-- ADD CATEGORY MODAL -->
     <div class="modal fade" id="add_cate_Modal" role="dialog">
     <div class="modal-dialog">
       <!-- Modal content-->
@@ -138,6 +137,7 @@
     </div>
   </div>
 </div><!-- delete modal-->
+
 </body>
 
 <style type="text/css">
@@ -151,5 +151,5 @@
   integrity="sha256-WpOohJOqMqqyKL9FccASB9O0KwACQJpFTUBLTYOVvVU="
   crossorigin="anonymous"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.js"></script>
-<script type="text/javascript" src="khoiscript.js"></script>
+<script type="text/javascript" src="../../control/script_category.js"></script>
 </html>

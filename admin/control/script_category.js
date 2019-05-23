@@ -6,9 +6,21 @@ console.log('ok');
 // };
 
 // 
-// function syncFunc(){
-//   console.log('Sync successfully');
-// };
+ function syncFunc(){
+   $.ajax({
+    method: 'GET',
+    url: '../../api/category/read_latest.php',
+    dateType: 'json',
+  }).done(function (syncFunc) {
+    console.log(category_arr);
+
+  }).fail(function (jqXHR, statusText, errorThrown) {
+    console.log('fail: '+ jqXHR.responseText);
+    console.log(statusText);
+    console.log(errorThrown);
+  })
+  console.log('Sync successfully');
+ };
 
 // TURN JSON INTO JSON OBJECT
 $.fn.serializeObject = function()
@@ -33,17 +45,17 @@ $(document).ready(function(){
     // GET CATEGORY
   $.ajax({
     method: 'GET',
-    url: '../../../api/category/read.php',
+    url: '../../api/category/read.php',
     dateType: 'json',
   }).done(function (category_arr) {
     console.log(category_arr);
     var rows ="";
     $.each(category_arr.data, function(index,cate){
 
-      console.log(cate.category_id);
+      console.log(cate.category_code);
       rows +="<tr>";
       rows +="<td class='id'>"+cate.id+"</td>";
-      rows +="<td class='cate-id' id='cate-id'>"+cate.category_id+"</td>";
+      rows +="<td class='cate-id' id='cate-id'>"+cate.category_code+"</td>";
       rows +="<td class='cate-name' id='cate-name'>"+cate.category_name+"</td>";
       rows +="<td class='option'><button class='btn-primary update-cate' value='Edit'data-target='#up_cate_Modal'>EDIT</button><button value='delete' class='btn-danger delete-category' id='delete-cate-btn'>DELETE</button></td>";
       rows +="</tr>";
@@ -63,7 +75,7 @@ $(document).ready(function(){
     console.log(formData);
     $.ajax({
       method: 'POST',
-      url: '../../../api/category/create.php',
+      url: '../../api/category/create.php',
       dateType: 'json',
       data: formData,
     }).done(function (data) {
@@ -147,4 +159,24 @@ $(document).ready(function(){
       console.log(errorThrown);
     })
   }) 
+  //BTN SYNC CATEGORY
+  $('#sync-cate-btn').click(function (syncFunc) {
+    $.ajax({
+      method: 'POST',
+      url: '../../../api/category/read_latest.php',
+      dateType: 'json',
+      data: formData,
+    }).done(function (data) {
+       console.log(data);
+      // HIDE MODAL
+      $('#delcate_Modal').modal('hide');
+    location.reload();
+    }).fail(function (jqXHR, statusText, errorThrown) {
+      console.log('fail: '+ jqXHR.responseText);
+      console.log(statusText);
+      console.log(errorThrown);
+    })
+  }) 
+ 
+
 })
