@@ -34,6 +34,7 @@
                     <div class="page-header clearfix">
                         <h2 class="pull-left">Bảng Categories</h2>
                         <a class="btn btn-success pull-right" data-toggle="modal" data-target="#add_cate_Modal">Thêm Category</a>
+                        <a class="btn btn-info pull-center" data-toggle ="" data-target="">Đồng bộ hóa</a>
                     </div>
                     <table id="cate-table" class="table table-bordered table-striped">
                         <thead>
@@ -68,8 +69,8 @@
         </div>
         <div class="modal-body">
           <form method="post" id="add-cate-form">
-            <label>Category ID:</label>
-            <input type="text" name="category_id" id="category_id" class="form-control"/>
+            <label>Category Code:</label>
+            <input type="text" name="category_code" id="category_code" class="form-control"/>
             </br>
              <label>Category Name:</label>
             <input type="text" name="category_name" id="category_name" class="form-control"/>
@@ -85,7 +86,7 @@
   </div>
 </div>
 
- <!-- UPDATE MODAL -->
+ <!-- UPDATE CATEGORY MODAL -->
 
     <div class="modal fade" id="up_cate_Modal" role="dialog">
     <div class="modal-dialog">
@@ -97,8 +98,8 @@
         </div>
         <div class="modal-body">
           <form method="post" id="up-cate-form">
-            <label>Category ID:</label>
-            <input type="text" name="category_id" id="edit_category_id"  class="edit_category_id form-control" />
+            <label>Category Code:</label>
+            <input type="text" name="category_code" id="edit_category_code"  class="edit_category_code form-control" />
             </br>
              <label>Category Name:</label>
             <input type="text" name="category_name" id="edit_category_name" class="edit_category_name form-control" />
@@ -115,7 +116,7 @@
   </div>
 </div>
 
-<!--  DELETE PRODUCT MODAL -->
+<!--  DELETE CATEGORY MODAL -->
 
 <div id="delcate_Modal" class="modal fade" role="dialog">
   <div class="modal-dialog">

@@ -27,44 +27,26 @@
         <div class="col-md-12">
           <div>
             <div>
-              <h2><center>DANH SÁCH ACCOUNT</center></h2>
+              <h2><center>ACCOUNT LIST</center></h2>
               <table class="table table-bordered" id="accountTable" width="100%" cellspacing="0">
                 <thead>
-                  <tr>
-                    <th>STT</th>
-                    <th>USER NAME</th>
-                    <th>PASS WORD</th>
+                    <th>ID</th>
+                    <th>USERNAME</th>
+                    <th>PASSWORD</th>
                     <th>TYPE</th>
                     <th>POINT</th>
-                    <th>
-                      <button  type="button" name="add" id="add" data-toggle="modal" data-target="#add_data_Modal" class="btn btn-success">Add New Account
-                      </button>
-                    </th>
-                  </tr>
                 </thead>
                 <tbody>
-                  <?php 
-                      require_once "config.php";
-                    $result  = mysqli_query($link ,'SELECT * FROM account');
-                      while($row=mysqli_fetch_array($result)){
-                  ?>
-                    <tr>
-                      <td class="id"><?php echo $row['id']; ?></td>
-                      <td class="username"><?php echo $row['username']; ?></td>
-                      <td class="password"><?php echo $row['password']; ?></td>
-                      <td class="type"><?php echo $row['type']; ?></td>
-                      <td class="point"><?php echo $row['point']; ?></td>
-                      <td>
-                          <a a href="#" data-id="<?php echo $row['id'] ;?>">
-                            <button  type="button" data-toggle="modal" data-target="#up-account-Modal"  class="up-acc-btn btn btn-warning">Update</button> 
-                            |
-                            <button  type="button" data-toggle="modal" data-target="#delete-account-modal" class="btn btn-danger delete-account">Delete</button></a>
-                      </td>
-                    </tr>
-                  <?php 
-                    }
-                  ?>
+                 
                 </tbody>
+                <tfoot>
+                    <th>ID</th>
+                    <th>USERNAME</th>
+                    <th>PASSWORD</th>
+                    <th>TYPE</th>
+                    <th>POINT</th>
+                </tfoot>
+              
               </table>
             </div>
           </div>
@@ -165,7 +147,7 @@
   integrity="sha256-WpOohJOqMqqyKL9FccASB9O0KwACQJpFTUBLTYOVvVU="
   crossorigin="anonymous"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.js"></script>
-  <script src="../../control/script.js"></script>
+  <script src="../control/script_trang.js"></script>
 </body>
 </html>
 
