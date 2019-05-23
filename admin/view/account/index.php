@@ -28,6 +28,8 @@
           <div>
             <div>
               <h2><center>ACCOUNT LIST</center></h2>
+              <button class="btn btn-info">SYNC DATA</button>
+              <button class="btn btn-success pull-right" data-toggle="modal" data-target="#add-data-Modal">ADD ACCOUNT</button>
               <table class="table table-bordered" id="accountTable" width="100%" cellspacing="0">
                 <thead>
                     <th>ID</th>
@@ -35,6 +37,7 @@
                     <th>PASSWORD</th>
                     <th>TYPE</th>
                     <th>POINT</th>
+                    <th>OPTION</th>
                 </thead>
                 <tbody>
                  
@@ -45,6 +48,7 @@
                     <th>PASSWORD</th>
                     <th>TYPE</th>
                     <th>POINT</th>
+                    <th>OPTION</th>
                 </tfoot>
               
               </table>
@@ -56,24 +60,28 @@
   </div>
 
   <!-- MODAL ADD ACCOUNT -->
-  <div class="modal fade" id="add_data_Modal" role="dialog">
+  <div class="modal fade" id="add-data-Modal" role="dialog">
     <div class="modal-dialog">
       <!-- Modal content-->
       <div class="modal-content">
         <div class="modal-header" text-align="left">
           <h4 class="modal-title">ADD NEW ACCOUNT USER</h4>
-          <button type="button" class="close" data-dismiss="modal">&times;</button>
+          
+          <button class="close" data-dismiss="modal">&times;</button>
         </div>
         <div class="modal-body">
           <form method="post" id="add-account-form">
-            <label>User Name:</label>
+            <label>Username:</label>
             <input type="text" name="username" id="username" class="form-control"/>
             </br>
-            <label>Pass Word:</label>
+            <label>Password:</label>
             <input type="text" name="password" id="password" class="form-control"/>
             </br>
             <label>Type:</label>
-            <input type="text" name="type" id="type" class="form-control"/>
+            <select name="type" id="type" class="form-control">
+            <option value ="Customer">Customer</option>
+            <option value ="Employee">Employee</option>
+            </select>
             </br>
             <label>Point:</label>
             <input type="text" name="point" id="point" class="form-control"/>
@@ -106,7 +114,10 @@
             <input type="text" name="password" id="up-password" class="form-control"/>
             </br>
             <label>Type:</label>
-            <input type="text" name="type" id="up-type" class="form-control"/>
+            <select name="type" id="up-type" class="form-control">
+            <option value ="Customer">Customer</option>
+            <option value ="Employee">Employee</option>
+            </select>
             </br>
             <label>Point:</label>
             <input type="text" name="point" id="up-point" class="form-control"/>
@@ -121,10 +132,10 @@
   </div>
 
   <!-- MODAL DELETE ACCOUNT -->
-  <div id="delete-account-modal" class="modal fade" role="dialog">
-    <div class="modal-dialog">
+  <!-- <div id="delete-account-modal" class="modal fade" role="dialog">
+    <div class="modal-dialog"> -->
       <!-- Modal content-->
-      <div class="modal-content">
+      <!-- <div class="modal-content">
         <div class="modal-header">
           <button type="button" class="close" data-dismiss="modal">&times;</button>
           <h4 class="modal-title"><i class="fa fa-trash"></i> Bạn Có Muốn Xoá Account ?</h4>
@@ -140,14 +151,14 @@
         </div>
       </div>
     </div>
-  </div>
+  </div> -->
 
   <script
   src="https://code.jquery.com/jquery-3.4.1.js"
   integrity="sha256-WpOohJOqMqqyKL9FccASB9O0KwACQJpFTUBLTYOVvVU="
   crossorigin="anonymous"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.js"></script>
-  <script src="../control/script_trang.js"></script>
+  <script Type="text/javascript" src="../../control/script_account.js"></script>
 </body>
 </html>
 
