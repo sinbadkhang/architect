@@ -29,7 +29,7 @@
 			extract($row);
 
 			$account_item = array(
-				'account_id'=>$account_id,
+				'account_code'=>$account_code,
 				'username'=>$username,
 				'password'=>$password,
 				'type'=>$type,
