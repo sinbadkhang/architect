@@ -144,9 +144,6 @@
   font-family: "Arial Black", Gadget, sans-serif
 }
 
- 
-
-   
 </style>
 <script
   src="https://code.jquery.com/jquery-3.4.1.js"
