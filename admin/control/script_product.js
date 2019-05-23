@@ -1,40 +1,36 @@
 console.log('ok');
 
-var myVar;
+// 
+// function intervalFunc() {
+//   myVar = setInterval(syncFunc, 3000);
+// };
 
 // 
-function intervalFunc() {
-  myVar = setInterval(syncFunc, 3000);
-};
+// function syncFunc(){
+//   console.log('Sync successfully');
+// };
 
-// 
-function syncFunc(){
-  console.log('Sync successfully');
-};
-
-
-
-  $.fn.serializeObject = function()
+// TURN JSON INTO JSON OBJECT
+$.fn.serializeObject = function()
   {
-      var o = {};
-      var a = this.serializeArray();
-      $.each(a, function() {
-          if (o[this.name] !== undefined) {
-              if (!o[this.name].push) {
-                  o[this.name] = [o[this.name]];
-              }
-              o[this.name].push(this.value || '');
-          } else {
-              o[this.name] = this.value || '';
-          }
-      });
-      return o;
-  };
+    var o = {};
+    var a = this.serializeArray();
+    $.each(a, function() {
+        if (o[this.name] !== undefined) {
+            if (!o[this.name].push) {
+                o[this.name] = [o[this.name]];
+            }
+            o[this.name].push(this.value || '');
+        } else {
+            o[this.name] = this.value || '';
+        }
+    });
+    return o;
+};
 
-  // Khang ajax get template
-  
-  // update product
-
+// DOCUMENT READY
+$(document).ready(function(){
+    // BTN UPDATE PRODUCT ON TABLE
   $('#productTable tbody').on('click', '.update-product', function () {
     // GET DATA
     var id = $(this).parents('tr').find('.id').text();
@@ -55,11 +51,21 @@ function syncFunc(){
     // UPDATE MODAL
     // $('#up_product_Modal').modal();
   })
+
+  // BTN DELETE PRODUCT ON TABLE
+  $('#productTable tbody').on('click', '.delete-product', function () {
+    // GET DATA
+    var id = $(this).parents('tr').find('.id').text();
+   
+    // SET DATA
+    $('#del-id').val(id);   
+     
+    // UPDATE MODAL
+    // $('#delproduct_Modal').modal();
+  })
     
-
-// Add product
-
-$('#add-product-btn').click(function(){
+  // BTN ADD PRODUCT 
+  $('#add-product-btn').click(function(){
     
     var formData = JSON.stringify($('#add-product-form').serializeObject());
     console.log(formData);
@@ -78,11 +84,8 @@ $('#add-product-btn').click(function(){
     })
   })
 
-
-   
-  // update product
-
-   $('#up-product-btn').click(function(e){
+  // BTN UPDATE PRODUCT
+  $('#up-product-btn').click(function(e){
     
     var formData = JSON.stringify($('#up-product-form').serializeObject());
     console.log(formData);
@@ -101,8 +104,8 @@ $('#add-product-btn').click(function(){
     })
   }) 
 
- $('#delete-product-btn').click(function (e) {
-
+  // BTN DELETE PRODUCT
+  $('#delete-product-btn').click(function (e) {
     var formData = JSON.stringify($('#delete-product-form').serializeObject());
     console.log(formData);
     $.ajax({
@@ -119,19 +122,6 @@ $('#add-product-btn').click(function(){
       console.log('fail: '+ jqXHR.responseText);
       console.log(statusText);
       console.log(errorThrown);
-
     })
   })
-
-
-$('#productTable tbody').on('click', '.delete-product', function () {
-    // GET DATA
-    var id = $(this).parents('tr').find('.id').text();
-   
-    // SET DATA
-    $('#del-id').val(id);
-   
-     
-    // UPDATE MODAL
-    // $('#delproduct_Modal').modal();
-  })
+})
