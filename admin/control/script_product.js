@@ -30,6 +30,56 @@ $.fn.serializeObject = function()
 
 // DOCUMENT READY
 $(document).ready(function(){
+
+  //GET PRODUCT
+  $.ajax({
+    method: 'GET',
+    url: '../../../api/product/read.php',
+    dateType: 'json',
+  }).done(function (product_arr) {
+    console.log(product_arr);
+    var rows ="";
+    $.each(product_arr.data, function(index,pro){
+      console.log(pro.id);
+      rows +="<tr>";
+      rows +="<td class='id'>"+pro.id+"</td>";
+      rows +="<td class='pro-code' id='pro-code'>"+pro.product_code+"</td>";
+      rows +="<td class='pro-name' id='pro-name'>"+pro.product_name+"</td>";
+      rows +="<td class='pro-catid' id='pro-catid'>"+pro.category_code+"</td>";
+      rows +="<td class='pro-quantity' id='pro-quantity'>"+pro.quantity+"</td>";
+      rows +="<td class='pro-price' id='pro-price'>"+pro.price+"</td>";
+      rows +="<td class='option'><button class='btn-primary update-pro' value='Edit' data-toggle='modal' data-target='#up-account-Modal'>EDIT</button></td>";
+      rows +="</tr>";
+    })
+    $("#productTable tbody").html(rows);
+    
+  }).fail(function (jqXHR, statusText, errorThrown) {
+    console.log('fail: '+ jqXHR.responseText);
+    console.log(statusText);
+    console.log(errorThrown);
+  })
+ // BTN ADD PRODUCT 
+ $('#add-product-btn').click(function(){
+    
+  var formData = JSON.stringify($('#add-product-form').serializeObject());
+  console.log(formData);
+  $.ajax({
+    method: 'POST',
+    url: '../../../api/product/create.php',
+    dateType: 'json',
+    data: formData,
+  }).done(function (data) {
+    console.log(data);
+    
+  }).fail(function (jqXHR, statusText, errorThrown) {
+    console.log('fail: '+ jqXHR.responseText);
+    console.log(statusText);
+    console.log(errorThrown);
+  })
+})
+
+
+
     // BTN UPDATE PRODUCT ON TABLE
   $('#productTable tbody').on('click', '.update-product', function () {
     // GET DATA
@@ -64,26 +114,7 @@ $(document).ready(function(){
     // $('#delproduct_Modal').modal();
   })
     
-  // BTN ADD PRODUCT 
-  $('#add-product-btn').click(function(){
-    
-    var formData = JSON.stringify($('#add-product-form').serializeObject());
-    console.log(formData);
-    $.ajax({
-      method: 'POST',
-      url: '../../../api/product/create.php',
-      dateType: 'json',
-      data: formData,
-    }).done(function (data) {
-      console.log(data);
-      
-    }).fail(function (jqXHR, statusText, errorThrown) {
-      console.log('fail: '+ jqXHR.responseText);
-      console.log(statusText);
-      console.log(errorThrown);
-    })
-  })
-
+ 
   // BTN UPDATE PRODUCT
   $('#up-product-btn').click(function(e){
     
@@ -124,4 +155,4 @@ $(document).ready(function(){
       console.log(errorThrown);
     })
   })
-})
+});

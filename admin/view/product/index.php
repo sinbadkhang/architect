@@ -64,63 +64,46 @@
         <div class="container-fluid">
             <div class="row">
                 <div class="col-md-12">
-                   
                    <div >
-            <div >
+               <div>
                 <h2 ><center>Bảng sản phẩm</center></h2>
+                <button class="btn btn-success pull-right" data-toggle="modal" data-target="#add-product-Modal">ADD PRODUCT</button>
               <table class="table table-bordered" id="productTable" width="100%" cellspacing="0">
                 <thead>
-                  <tr>
-                     <th>Id</th>
-                    <th>Product Id</th>
+                    <th>Id</th>
+                    <th>Product Code</th>
                     <th>Product Name</th>
-                    <th>Category Id</th>
+                    <th>Category Code</th>
                     <th>Quantity</th>
-                     <th>Price</th>
-                    <th><button  type="button" name="add" id="add" data-toggle="modal" data-target="#add_product_Modal" class="btn btn-success">Add New Account
-                  </button></th>
-                  </tr>
+                    <th>Price</th>
+                    <th>Option</th>                    
                 </thead>
-               
                 <tbody>
-                  <?php 
-                       require_once "config.php";
-                    $result  = mysqli_query($link ,'SELECT * FROM product');
-                      while($row=mysqli_fetch_array($result)){
-                  ?>
-                                <tr id="<?php echo $row['id']; ?>">
-                                  <td class="id"><?php echo $row['id']; ?></td>
-                                  <td class="product_id"><?php echo $row['product_id']; ?></td>
-                                  <td class="product_name"><?php echo $row['product_name']; ?></td>
-                                  <td class="category_id"><?php echo $row['category_id']; ?></td>
-                                  <td class="quantity"><?php echo $row['quantity']; ?></td>
-                                  <td class="price"><?php echo $row['price']; ?></td>
-                                  <td>
-                                      <a a href="#" data-role="update" data-id="<?php echo $row['id'] ;?>">
-                                          <button  type="button" data-toggle="modal" data-target="#up_product_Modal" class="btn btn-warning update-product">Sửa</button>
-                                           <button  type="button" data-toggle="modal" data-target="#delproduct_Modal" class="btn btn-primary delete-product">Xoá</button>
-                                      </a>
-                                     
-                                  </td>
-                                </tr>
-                    <?php 
-                      }
-                    ?>
+                
                 </tbody>
+                <tfoot>
+                    <th>Id</th>
+                    <th>Product Code</th>
+                    <th>Product Name</th>
+                    <th>Category Code</th>
+                    <th>Quantity</th>
+                    <th>Price</th>
+                    <th>Option</th>        
+                </tfoot>
               </table>
             </div>
           </div>
         </div>
-            </div>        
-        </div>
+      </div>        
     </div>
+</div>
    
 
  
- <!-- Add -->
+ <!-- ADD PRODUCT MODAL -->
 
 
-  <div class="modal fade" id="add_product_Modal" role="dialog">
+  <div class="modal fade" id="add-product-Modal" role="dialog">
     <div class="modal-dialog">
       <!-- Modal content-->
       <div class="modal-content">
@@ -188,7 +171,7 @@
   integrity="sha256-WpOohJOqMqqyKL9FccASB9O0KwACQJpFTUBLTYOVvVU="
   crossorigin="anonymous"></script>
    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.js"></script>
-  <script src="../../control/script_tuan.js"></script>
+  <script Type="text/javascript" src="../../control/script_product.js"></script>
 
 </body>
 </html>
