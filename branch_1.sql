@@ -2,10 +2,10 @@
 -- version 4.8.5
 -- https://www.phpmyadmin.net/
 --
--- Host: 127.0.0.1
--- Generation Time: May 24, 2019 at 06:50 AM
--- Server version: 10.1.38-MariaDB
--- PHP Version: 7.3.3
+-- Máy chủ: 127.0.0.1
+-- Thời gian đã tạo: Th5 24, 2019 lúc 07:03 PM
+-- Phiên bản máy phục vụ: 10.1.38-MariaDB
+-- Phiên bản PHP: 7.3.3
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET AUTOCOMMIT = 0;
@@ -19,13 +19,13 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Database: `branch_1`
+-- Cơ sở dữ liệu: `branch_1`
 --
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `account`
+-- Cấu trúc bảng cho bảng `account`
 --
 
 CREATE TABLE `account` (
@@ -37,18 +37,15 @@ CREATE TABLE `account` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 --
--- Dumping data for table `account`
+-- Đang đổ dữ liệu cho bảng `account`
 --
 
 INSERT INTO `account` (`id`, `username`, `password`, `type`, `point`) VALUES
-(1, 'test trg', '1234', 'Customer', 12),
-(3, 'test add', '123', 'manaawdge', 0),
-(18, 'test add', '1243', '1', 12),
 (19, 'sinbadkhang', '12312', 'manager', 1),
-(20, 'sinbadkhang', '1234', 'Customer', 12);
+(22, 'sinbadkhang1', '12', 'manager', 2);
 
 --
--- Triggers `account`
+-- Bẫy `account`
 --
 DELIMITER $$
 CREATE TRIGGER `trg_acc_del` AFTER DELETE ON `account` FOR EACH ROW INSERT INTO account_log VALUES(null,(SELECT server_version FROM sync_log ORDER BY id DESC LIMIT 1), OLD.id, 'delete')
@@ -66,7 +63,7 @@ DELIMITER ;
 -- --------------------------------------------------------
 
 --
--- Table structure for table `account_log`
+-- Cấu trúc bảng cho bảng `account_log`
 --
 
 CREATE TABLE `account_log` (
@@ -76,26 +73,10 @@ CREATE TABLE `account_log` (
   `operation` varchar(10) COLLATE utf8_unicode_ci NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
---
--- Dumping data for table `account_log`
---
-
-INSERT INTO `account_log` (`id`, `version`, `account_id`, `operation`) VALUES
-(1, 0, 3, 'insert'),
-(2, 0, 12, 'insert'),
-(3, 0, 12, 'delete'),
-(4, 0, 1, 'update'),
-(5, 1, 18, 'insert'),
-(6, 1, 19, 'insert'),
-(7, 1, 1, 'update'),
-(8, 1, 1, 'update'),
-(9, 1, 1, 'update'),
-(10, 1, 20, 'insert');
-
 -- --------------------------------------------------------
 
 --
--- Table structure for table `bill`
+-- Cấu trúc bảng cho bảng `bill`
 --
 
 CREATE TABLE `bill` (
@@ -110,19 +91,15 @@ CREATE TABLE `bill` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 --
--- Dumping data for table `bill`
+-- Đang đổ dữ liệu cho bảng `bill`
 --
 
 INSERT INTO `bill` (`id`, `bill_code`, `bill_info`, `created_date`, `total_price`, `total_point`, `customer_name`, `cashier_name`) VALUES
 (14, 'bq231', '[{\"product_name\":\"coca cola\",\"quantity\":\"123\"}]', '0000-00-00 00:00:00', 222, 12312, 'khang', 'awda'),
-(15, 'bq231', '[{\"product_name\":\"coca cola\",\"quantity\":\"123\"}]', '0000-00-00 00:00:00', 111111, 12312, 'khang', 'awda'),
-(19, 'bq231', '[{\"product_name\":\"coca cola\",\"quantity\":\"132123\"}]', '0000-00-00 00:00:00', 111111, 12312, 'khang', 'awda'),
-(21, 'bq231', '[{\"product_name\":\"coca cola\",\"quantity\":\"132123\"}]', '0000-00-00 00:00:00', 111111, 12312, 'khang', 'awda'),
-(22, 'bq231', '[{\"product_name\":\"coca\",\"quantity\":\"132123\"}]', '0000-00-00 00:00:00', 111111, 12312, 'khang', 'awda'),
 (23, '6969', '\"[{\\\"product_name\\\":\\\"coca cola\\\",\\\"quantity\\\":\\\"123\\\"}]\"', '0000-00-00 00:00:00', 222, 12312, 'test api update', 'awda');
 
 --
--- Triggers `bill`
+-- Bẫy `bill`
 --
 DELIMITER $$
 CREATE TRIGGER `trg_bill_del` AFTER DELETE ON `bill` FOR EACH ROW INSERT INTO bill_log VALUES(null,(SELECT server_version FROM sync_log ORDER BY id DESC LIMIT 1), OLD.id, 'delete')
@@ -140,7 +117,7 @@ DELIMITER ;
 -- --------------------------------------------------------
 
 --
--- Table structure for table `bill_log`
+-- Cấu trúc bảng cho bảng `bill_log`
 --
 
 CREATE TABLE `bill_log` (
@@ -150,21 +127,10 @@ CREATE TABLE `bill_log` (
   `operation` varchar(10) COLLATE utf8_unicode_ci NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
---
--- Dumping data for table `bill_log`
---
-
-INSERT INTO `bill_log` (`id`, `version`, `bill_id`, `operation`) VALUES
-(1, 1, 18, 'delete'),
-(2, 1, 14, 'update'),
-(3, 1, 23, 'insert'),
-(4, 1, 23, 'update'),
-(5, 1, 20, 'delete');
-
 -- --------------------------------------------------------
 
 --
--- Table structure for table `category`
+-- Cấu trúc bảng cho bảng `category`
 --
 
 CREATE TABLE `category` (
@@ -174,14 +140,14 @@ CREATE TABLE `category` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 --
--- Dumping data for table `category`
+-- Đang đổ dữ liệu cho bảng `category`
 --
 
 INSERT INTO `category` (`id`, `category_code`, `category_name`) VALUES
 (7, 123, 'drink');
 
 --
--- Triggers `category`
+-- Bẫy `category`
 --
 DELIMITER $$
 CREATE TRIGGER `trg_cate_del` AFTER DELETE ON `category` FOR EACH ROW INSERT INTO category_log VALUES(null,(SELECT server_version FROM sync_log ORDER BY id DESC LIMIT 1), OLD.id, 'delete')
@@ -199,7 +165,7 @@ DELIMITER ;
 -- --------------------------------------------------------
 
 --
--- Table structure for table `category_log`
+-- Cấu trúc bảng cho bảng `category_log`
 --
 
 CREATE TABLE `category_log` (
@@ -212,7 +178,7 @@ CREATE TABLE `category_log` (
 -- --------------------------------------------------------
 
 --
--- Table structure for table `product`
+-- Cấu trúc bảng cho bảng `product`
 --
 
 CREATE TABLE `product` (
@@ -225,15 +191,14 @@ CREATE TABLE `product` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 --
--- Dumping data for table `product`
+-- Đang đổ dữ liệu cho bảng `product`
 --
 
 INSERT INTO `product` (`id`, `product_code`, `product_name`, `category_id`, `quantity`, `price`) VALUES
-(4, '1234', 'string 2', 7, 1, 2),
-(5, '1234', 'string', 7, 1, 2);
+(4, '1234', 'string 2', 7, 1, 2);
 
 --
--- Triggers `product`
+-- Bẫy `product`
 --
 DELIMITER $$
 CREATE TRIGGER `trg_pro_del` AFTER DELETE ON `product` FOR EACH ROW INSERT INTO product_log VALUES(null,(SELECT server_version FROM sync_log ORDER BY id DESC LIMIT 1), OLD.id, 'delete')
@@ -251,7 +216,7 @@ DELIMITER ;
 -- --------------------------------------------------------
 
 --
--- Table structure for table `product_log`
+-- Cấu trúc bảng cho bảng `product_log`
 --
 
 CREATE TABLE `product_log` (
@@ -261,19 +226,10 @@ CREATE TABLE `product_log` (
   `operation` varchar(10) COLLATE utf8_unicode_ci NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
---
--- Dumping data for table `product_log`
---
-
-INSERT INTO `product_log` (`id`, `version`, `product_id`, `operation`) VALUES
-(8, 1, 4, 'insert'),
-(9, 1, 5, 'insert'),
-(10, 1, 4, 'update');
-
 -- --------------------------------------------------------
 
 --
--- Table structure for table `sync_log`
+-- Cấu trúc bảng cho bảng `sync_log`
 --
 
 CREATE TABLE `sync_log` (
@@ -282,137 +238,140 @@ CREATE TABLE `sync_log` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 --
--- Dumping data for table `sync_log`
+-- Đang đổ dữ liệu cho bảng `sync_log`
 --
 
 INSERT INTO `sync_log` (`server_version`, `id`) VALUES
-(0, 1),
-(1, 2);
+(0, 1);
 
 --
--- Indexes for dumped tables
+-- Chỉ mục cho các bảng đã đổ
 --
 
 --
--- Indexes for table `account`
+-- Chỉ mục cho bảng `account`
 --
 ALTER TABLE `account`
-  ADD PRIMARY KEY (`id`);
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `username` (`username`);
 
 --
--- Indexes for table `account_log`
+-- Chỉ mục cho bảng `account_log`
 --
 ALTER TABLE `account_log`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indexes for table `bill`
+-- Chỉ mục cho bảng `bill`
 --
 ALTER TABLE `bill`
-  ADD PRIMARY KEY (`id`);
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `bill_code` (`bill_code`);
 
 --
--- Indexes for table `bill_log`
+-- Chỉ mục cho bảng `bill_log`
 --
 ALTER TABLE `bill_log`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indexes for table `category`
+-- Chỉ mục cho bảng `category`
 --
 ALTER TABLE `category`
   ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `category_code` (`category_code`),
   ADD KEY `category_id` (`category_code`);
 
 --
--- Indexes for table `category_log`
+-- Chỉ mục cho bảng `category_log`
 --
 ALTER TABLE `category_log`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indexes for table `product`
+-- Chỉ mục cho bảng `product`
 --
 ALTER TABLE `product`
   ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `product_code` (`product_code`),
   ADD KEY `category_code` (`category_id`);
 
 --
--- Indexes for table `product_log`
+-- Chỉ mục cho bảng `product_log`
 --
 ALTER TABLE `product_log`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indexes for table `sync_log`
+-- Chỉ mục cho bảng `sync_log`
 --
 ALTER TABLE `sync_log`
   ADD PRIMARY KEY (`id`);
 
 --
--- AUTO_INCREMENT for dumped tables
+-- AUTO_INCREMENT cho các bảng đã đổ
 --
 
 --
--- AUTO_INCREMENT for table `account`
+-- AUTO_INCREMENT cho bảng `account`
 --
 ALTER TABLE `account`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=21;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=23;
 
 --
--- AUTO_INCREMENT for table `account_log`
+-- AUTO_INCREMENT cho bảng `account_log`
 --
 ALTER TABLE `account_log`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=26;
 
 --
--- AUTO_INCREMENT for table `bill`
+-- AUTO_INCREMENT cho bảng `bill`
 --
 ALTER TABLE `bill`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=24;
 
 --
--- AUTO_INCREMENT for table `bill_log`
+-- AUTO_INCREMENT cho bảng `bill_log`
 --
 ALTER TABLE `bill_log`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 
 --
--- AUTO_INCREMENT for table `category`
+-- AUTO_INCREMENT cho bảng `category`
 --
 ALTER TABLE `category`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
--- AUTO_INCREMENT for table `category_log`
+-- AUTO_INCREMENT cho bảng `category_log`
 --
 ALTER TABLE `category_log`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
--- AUTO_INCREMENT for table `product`
+-- AUTO_INCREMENT cho bảng `product`
 --
 ALTER TABLE `product`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
--- AUTO_INCREMENT for table `product_log`
+-- AUTO_INCREMENT cho bảng `product_log`
 --
 ALTER TABLE `product_log`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
 
 --
--- AUTO_INCREMENT for table `sync_log`
+-- AUTO_INCREMENT cho bảng `sync_log`
 --
 ALTER TABLE `sync_log`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
--- Constraints for dumped tables
+-- Các ràng buộc cho các bảng đã đổ
 --
 
 --
--- Constraints for table `product`
+-- Các ràng buộc cho bảng `product`
 --
 ALTER TABLE `product`
   ADD CONSTRAINT `product_ibfk_1` FOREIGN KEY (`category_id`) REFERENCES `category` (`id`);

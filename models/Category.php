@@ -65,35 +65,6 @@
 			return $stmt;
 		}
 
-		// GET SINGLE CATEGORY
-		public function read_single(){
-			$query = 'SELECT 
-				id,
-				category_name,
-				category_code
-				FROM
-				' . $this->table . ' 
-				WHERE
-				id=?
-				LIMIT 0,1';
-
-			// prepare statement
-			$stmt = $this->conn->prepare($query);
-
-			// bind id
-			$stmt->bindParam(1, $this->id);
-
-			// execute query
-			$stmt->execute();
-
-			$row = $stmt->fetch(PDO::FETCH_ASSOC);
-
-			// set properties
-			$this->id = $row['id'];
-			$this->category_name = $row['category_name'];
-			$this->category_code = $row['category_code'];
-		}
-
 		// UPDATE CATEGORY
 		public function update(){
 			// create query
