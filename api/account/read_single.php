@@ -1,4 +1,5 @@
 <?php
+session_start();
 	// headers
 	header('Access-Control-Allow-Origin: *');
 	header('Content-Type: application/json');
@@ -13,8 +14,9 @@
 	// start account object
 	$account = new Account($db);
 
-	// get id
-	$account->id = isset($_GET['id']) ? $_GET['id'] : die();
+	// get username and password
+	$account->username = isset($_GET['username']) ? $_GET['username'] : die();
+	$account->password = isset($_GET['password']) ? $_GET['password'] : die();
 
 	// get account
 	$account->read_single();

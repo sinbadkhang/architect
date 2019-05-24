@@ -50,14 +50,17 @@
 				FROM
 				' . $this->table . ' 
 				WHERE
-				id=?
-				LIMIT 0,1';
+				username=?
+				AND 
+				password=?
+				';
 
 			// prepare statement
 			$stmt = $this->conn->prepare($query);
 
-			// bind id
-			$stmt->bindParam(1, $this->id);
+			// bind data
+			$stmt->bindParam(1, $this->username);
+			$stmt->bindParam(2, $this->password);
 
 			// execute query
 			$stmt->execute();

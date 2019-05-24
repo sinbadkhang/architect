@@ -110,22 +110,16 @@ body {
     <body>
     <div class="login-page">
   <div class="form">
-    <form method="POST" class="login-form" id="login-form">
-      <input type="text" placeholder="username" name="user"/>
-      <input type="password" placeholder="password" name="pass"/>
-      <button class="btn btn-success" type="button" id="login-btn" value="login"/>
+    <form method="GET" class="login-form" id="login-form">
+      <input type="text" placeholder="username" name="username"/>
+      <input type="password" placeholder="password" name="password"/>
+      <button class="btn btn-success" type="button" id="login-btn"/>LOGIN</button>
     </form>
   </div>
 </div>
 </body>
 <?php 
    
-
-  //  if(isset($_POST["login"])){
-  //   $user = $_POST['user'];
-  //   $pass = $_POST['pass'];
-
-  //   echo $user;
   //   require_once "api/account/read.php";
     // require "config/Database.php";
     //         $sql="SELECT * FROM account WHERE username='".$user."' AND password='".$pass."";
@@ -157,20 +151,40 @@ body {
   crossorigin="anonymous"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.js"></script>
 <script type="text/javascript">
+  $.fn.serializeObject = function()
+  {
+    var o = {};
+    var a = this.serializeArray();
+    $.each(a, function() {
+        if (o[this.name] !== undefined) {
+            if (!o[this.name].push) {
+                o[this.name] = [o[this.name]];
+            }
+            o[this.name].push(this.value || '');
+        } else {
+            o[this.name] = this.value || '';
+        }
+    });
+    return o;
+};
+
   $(document).ready(function(){
   
     $('#login-btn').click(function(){
+      // var formData = JSON.stringify($('#login-form').serializeObject());
       var formData = $('#login-form').serialize();
       console.log(formData);
       //GET ACCOUNT
       $.ajax({
-        method: 'POST',
-        url: 'signin.php',
+        method: 'GET',
+        url: 'api/account/read_single.php?"'+formData+'"',
         dateType: 'json',
+        data: formData
+
       }).done(function (account_arr) {
         console.log(account_arr);
-    
-          
+        
+        window.location.href = "client/view/bill";
 
         
       }).fail(function (jqXHR, statusText, errorThrown) {
