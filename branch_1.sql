@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: May 22, 2019 at 08:05 AM
+-- Generation Time: May 24, 2019 at 06:06 AM
 -- Server version: 10.1.38-MariaDB
 -- PHP Version: 7.3.3
 
@@ -41,9 +41,11 @@ CREATE TABLE `account` (
 --
 
 INSERT INTO `account` (`id`, `username`, `password`, `type`, `point`) VALUES
-(1, 'test trg', '1234', 'manaawdge', 0),
+(1, 'test trg', '1234', 'Customer', 12),
 (3, 'test add', '123', 'manaawdge', 0),
-(18, 'test add', '1243', '1', 12);
+(18, 'test add', '1243', '1', 12),
+(19, 'sinbadkhang', '12312', 'manager', 1),
+(20, 'sinbadkhang', '1234', 'Customer', 12);
 
 --
 -- Triggers `account`
@@ -83,7 +85,12 @@ INSERT INTO `account_log` (`id`, `version`, `account_id`, `operation`) VALUES
 (2, 0, 12, 'insert'),
 (3, 0, 12, 'delete'),
 (4, 0, 1, 'update'),
-(5, 1, 18, 'insert');
+(5, 1, 18, 'insert'),
+(6, 1, 19, 'insert'),
+(7, 1, 1, 'update'),
+(8, 1, 1, 'update'),
+(9, 1, 1, 'update'),
+(10, 1, 20, 'insert');
 
 -- --------------------------------------------------------
 
@@ -173,7 +180,8 @@ CREATE TABLE `category` (
 INSERT INTO `category` (`id`, `category_code`, `category_name`) VALUES
 (1, 123, 'drink'),
 (2, 135, 'suka'),
-(3, 159, 'test trigger');
+(3, 159, 'test trigger'),
+(4, 6969, 'test api id 4');
 
 --
 -- Triggers `category`
@@ -210,7 +218,9 @@ CREATE TABLE `category_log` (
 
 INSERT INTO `category_log` (`id`, `version`, `category_id`, `operation`) VALUES
 (1, 1, 3, 'insert'),
-(2, 1, 2, 'update');
+(2, 1, 2, 'update'),
+(3, 1, 4, 'insert'),
+(4, 1, 4, 'update');
 
 -- --------------------------------------------------------
 
@@ -222,7 +232,7 @@ CREATE TABLE `product` (
   `id` int(11) NOT NULL,
   `product_code` varchar(10) COLLATE utf8_unicode_ci NOT NULL,
   `product_name` varchar(30) COLLATE utf8_unicode_ci NOT NULL,
-  `category_id` int(11) NOT NULL,
+  `category_code` int(11) NOT NULL,
   `quantity` int(11) NOT NULL,
   `price` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
@@ -231,9 +241,10 @@ CREATE TABLE `product` (
 -- Dumping data for table `product`
 --
 
-INSERT INTO `product` (`id`, `product_code`, `product_name`, `category_id`, `quantity`, `price`) VALUES
+INSERT INTO `product` (`id`, `product_code`, `product_name`, `category_code`, `quantity`, `price`) VALUES
 (1, '123', 'coca cola', 123, 5000, 8000),
-(2, 'trg upd', 'test trg', 135, 1, 2);
+(2, 'test api', 'test api', 135, 1, 2),
+(3, 'trg upd', 'test api', 135, 1, 2);
 
 --
 -- Triggers `product`
@@ -270,7 +281,9 @@ CREATE TABLE `product_log` (
 
 INSERT INTO `product_log` (`id`, `version`, `product_id`, `operation`) VALUES
 (1, 1, 2, 'insert'),
-(2, 1, 2, 'update');
+(2, 1, 2, 'update'),
+(3, 1, 3, 'insert'),
+(4, 1, 2, 'update');
 
 -- --------------------------------------------------------
 
@@ -337,7 +350,7 @@ ALTER TABLE `category_log`
 --
 ALTER TABLE `product`
   ADD PRIMARY KEY (`id`),
-  ADD KEY `category_id` (`category_id`);
+  ADD KEY `category_id` (`category_code`);
 
 --
 -- Indexes for table `product_log`
@@ -359,13 +372,13 @@ ALTER TABLE `sync_log`
 -- AUTO_INCREMENT for table `account`
 --
 ALTER TABLE `account`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=21;
 
 --
 -- AUTO_INCREMENT for table `account_log`
 --
 ALTER TABLE `account_log`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 
 --
 -- AUTO_INCREMENT for table `bill`
@@ -383,25 +396,25 @@ ALTER TABLE `bill_log`
 -- AUTO_INCREMENT for table `category`
 --
 ALTER TABLE `category`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT for table `category_log`
 --
 ALTER TABLE `category_log`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT for table `product`
 --
 ALTER TABLE `product`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT for table `product_log`
 --
 ALTER TABLE `product_log`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT for table `sync_log`
@@ -417,7 +430,7 @@ ALTER TABLE `sync_log`
 -- Constraints for table `product`
 --
 ALTER TABLE `product`
-  ADD CONSTRAINT `product_ibfk_1` FOREIGN KEY (`category_id`) REFERENCES `category` (`category_code`);
+  ADD CONSTRAINT `product_ibfk_1` FOREIGN KEY (`category_code`) REFERENCES `category` (`category_code`);
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
