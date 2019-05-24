@@ -45,7 +45,7 @@ $(document).ready(function(){
     // GET CATEGORY
   $.ajax({
     method: 'GET',
-    url: '../../api/category/read.php',
+    url: '../../../api/category/read.php',
     dateType: 'json',
   }).done(function (category_arr) {
     console.log(category_arr);
@@ -55,7 +55,7 @@ $(document).ready(function(){
       console.log(cate.category_code);
       rows +="<tr>";
       rows +="<td class='id'>"+cate.id+"</td>";
-      rows +="<td class='cate-id' id='cate-id'>"+cate.category_code+"</td>";
+      rows +="<td class='cate-code' id='cate-code'>"+cate.category_code+"</td>";
       rows +="<td class='cate-name' id='cate-name'>"+cate.category_name+"</td>";
       rows +="<td class='option'><button class='btn-primary update-cate' value='Edit'data-target='#up_cate_Modal'>EDIT</button><button value='delete' class='btn-danger delete-category' id='delete-cate-btn'>DELETE</button></td>";
       rows +="</tr>";
@@ -75,7 +75,7 @@ $(document).ready(function(){
     console.log(formData);
     $.ajax({
       method: 'POST',
-      url: '../../api/category/create.php',
+      url: '../../../api/category/create.php',
       dateType: 'json',
       data: formData,
     }).done(function (data) {
@@ -94,11 +94,11 @@ $(document).ready(function(){
   $('#cate-table tbody').on('click', '.update-cate', function () {
     // GET DATA
     var id =$(this).parents('tr').find('.id').text();
-    var category_id = $(this).parents('tr').find('.cate-id').text();
+    var category_code = $(this).parents('tr').find('.cate-code').text();
     var category_name = $(this).parents('tr').find('.cate-name').text();
     
     // SET DATA
-    $('#edit_category_id').val(category_id);    
+    $('#edit_category_code').val(category_code);    
     $('#edit_category_name').val(category_name);
     $('#up-id').val(id);
      
