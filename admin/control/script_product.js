@@ -1,4 +1,4 @@
-console.log('ok');
+
 
 // 
 // function intervalFunc() {
@@ -30,7 +30,26 @@ $.fn.serializeObject = function()
 
 // DOCUMENT READY
 $(document).ready(function(){
+//get CATE
 
+  $.ajax({
+    method: 'GET',
+    url: '../../../api/category/read.php',
+    dateType: 'json',
+  }).done(function (category_arr) {
+    console.log(category_arr);
+    
+    var dropbox ="";
+    $.each(category_arr.data, function(index,cate){
+        dropbox +="<option class='category_name' value='"+cate.id+"'>"+cate.category_name+"</option>";
+      })
+      $("#category_id ").html(dropbox);
+        }).fail(function (jqXHR, statusText, errorThrown) {
+    console.log('fail: '+ jqXHR.responseText);
+    console.log(statusText);
+    console.log(errorThrown);
+  })
+ // BTN
   //GET PRODUCT
   $.ajax({
     method: 'GET',
@@ -39,20 +58,28 @@ $(document).ready(function(){
   }).done(function (product_arr) {
     console.log(product_arr);
     var rows ="";
+    var dropbox ="";
     $.each(product_arr.data, function(index,pro){
       console.log(pro.id);
       rows +="<tr>";
       rows +="<td class='id'>"+pro.id+"</td>";
-      rows +="<td class='pro-code' id='pro-code'>"+pro.product_code+"</td>";
-      rows +="<td class='pro-name' id='pro-name'>"+pro.product_name+"</td>";
-      rows +="<td class='pro-catid' id='pro-catid'>"+pro.category_code+"</td>";
-      rows +="<td class='pro-quantity' id='pro-quantity'>"+pro.quantity+"</td>";
-      rows +="<td class='pro-price' id='pro-price'>"+pro.price+"</td>";
-      rows +="<td class='option'><button class='btn-primary update-pro' value='Edit' data-toggle='modal' data-target='#up-account-Modal'>EDIT</button></td>";
+      rows +="<td class='product_code' >"+pro.product_code+"</td>";
+      rows +="<td class='product_name' >"+pro.product_name+"</td>";
+      rows +="<td class='category_id' >"+pro.category_id+"</td>";
+      rows +="<td class='category_code' >"+pro.category_code+"</td>";
+      rows +="<td class='category_name' >"+pro.category_name+"</td>";
+      rows +="<td class='quantity' >"+pro.quantity+"</td>";
+      rows +="<td class='price' >"+pro.price+"</td>";
+      rows +="<td class='option'><button class='btn-primary update-product' value='Edit' data-toggle='modal' data-target='#up_product_Modal'>EDIT</button><button class='btn-danger delete-product' value='Delte' data-toggle='modal' data-target='#delproduct_Modal'>DELETE</button></td>";
       rows +="</tr>";
+
+    
+
+      
     })
     $("#productTable tbody").html(rows);
-    
+  
+   
   }).fail(function (jqXHR, statusText, errorThrown) {
     console.log('fail: '+ jqXHR.responseText);
     console.log(statusText);
@@ -84,7 +111,7 @@ $(document).ready(function(){
   $('#productTable tbody').on('click', '.update-product', function () {
     // GET DATA
     var id = $(this).parents('tr').find('.id').text();
-    var product_id = $(this).parents('tr').find('.product_id').text();
+    var product_code = $(this).parents('tr').find('.product_code').text();
     var product_name = $(this).parents('tr').find('.product_name').text();
     var category_id = $(this).parents('tr').find('.category_id').text();
     var quantity = $(this).parents('tr').find('.quantity').text();
@@ -92,12 +119,12 @@ $(document).ready(function(){
 
     // SET DATA
     $('#up_id').val(id);
-    $('#up_product_id').val(product_id);    
+    $('#up_product_code').val(product_code);    
     $('#up_product_name').val(product_name);
     $('#up_category_id').val(category_id);   
     $('#up_quantity').val(quantity); 
     $('#up_price').val(price);
-     
+     console.log(category_id);
     // UPDATE MODAL
     // $('#up_product_Modal').modal();
   })
@@ -142,7 +169,7 @@ $(document).ready(function(){
     $.ajax({
       method: 'POST',
       url: '../../../api/product/delete.php',
-      dateType: 'json',
+      dataType: 'json',
       data: formData,
     }).done(function (data) {
        console.log(data);
@@ -155,4 +182,78 @@ $(document).ready(function(){
       console.log(errorThrown);
     })
   })
+
+  $('#sync-product-btn').click(function(e){
+    syncFunc();
+  })
+  
+ 
+ function syncFunc(){
+  $.ajax({
+  method: 'GET',
+  url: '../../../api/product/read_latest.php',
+  dataType: 'json'
+  }).done(function (product_arr) {
+    console.log(product_arr.data);
+
+    $.each(product_arr.data,function(index,pro){
+      if(pro.operation == 'insert') { 
+        // console.log(cate);
+        var data = JSON.stringify(pro);
+        console.log(data);
+        $.ajax({
+        method: 'POST',
+        url: '../../../../../HEAD/architect/api/product/create.php',
+        dataType: 'json',
+        data: data,
+       
+        }).done(function (data) {
+          // console.log(data);
+          
+          // location.reload();
+          
+        }).fail(function (jqXHR, statusText, errorThrown) {
+          console.log('fail: '+ jqXHR.responseText);
+          console.log(statusText);
+          console.log(errorThrown);
+        })
+      }
+      if(pro.operation == 'delete') { 
+        // console.log(cate);
+        var data = JSON.stringify(pro);
+        console.log(data);
+        $.ajax({
+        method: 'POST',
+        url: '../../../../../HEAD/architect/api/product/delete.php',
+        dataType: 'json',
+        data: data,
+       
+        }).done(function (data) {
+          // console.log(data);
+          
+          // location.reload();
+          
+        }).fail(function (jqXHR, statusText, errorThrown) {
+          console.log('fail: '+ jqXHR.responseText);
+          console.log(statusText);
+          console.log(errorThrown);
+        })
+      }   
+    }) 
+    //end loop
+    alert('ok');
+ }).fail(function(data,jqXHR,statusText,errorThrown){
+   console.log('fail: ' + jqXHR.responseText);
+   console.log(statusText);
+   console.log(errorThrown);
+ })
+};
+
+
+
+
+
+
+
+
 });

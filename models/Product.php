@@ -25,6 +25,7 @@
 			$query = 'SELECT 
 				c.category_name,
 				c.category_code,
+				p.category_id,
 				p.id,
 				p.product_code,
 				p.product_name,
