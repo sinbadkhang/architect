@@ -23,7 +23,7 @@
 
 	$product->product_name=$data->product_name;
 	$product->product_code=$data->product_code;
-	$product->category_code=$data->category_code;
+	$product->category_id=$data->category_id;
 	$product->quantity=$data->quantity;
 	$product->price=$data->price;
 
