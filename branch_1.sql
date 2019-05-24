@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: May 24, 2019 at 06:06 AM
+-- Generation Time: May 24, 2019 at 06:50 AM
 -- Server version: 10.1.38-MariaDB
 -- PHP Version: 7.3.3
 
@@ -178,10 +178,7 @@ CREATE TABLE `category` (
 --
 
 INSERT INTO `category` (`id`, `category_code`, `category_name`) VALUES
-(1, 123, 'drink'),
-(2, 135, 'suka'),
-(3, 159, 'test trigger'),
-(4, 6969, 'test api id 4');
+(7, 123, 'drink');
 
 --
 -- Triggers `category`
@@ -212,16 +209,6 @@ CREATE TABLE `category_log` (
   `operation` varchar(10) COLLATE utf8_unicode_ci NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
---
--- Dumping data for table `category_log`
---
-
-INSERT INTO `category_log` (`id`, `version`, `category_id`, `operation`) VALUES
-(1, 1, 3, 'insert'),
-(2, 1, 2, 'update'),
-(3, 1, 4, 'insert'),
-(4, 1, 4, 'update');
-
 -- --------------------------------------------------------
 
 --
@@ -232,7 +219,7 @@ CREATE TABLE `product` (
   `id` int(11) NOT NULL,
   `product_code` varchar(10) COLLATE utf8_unicode_ci NOT NULL,
   `product_name` varchar(30) COLLATE utf8_unicode_ci NOT NULL,
-  `category_code` int(11) NOT NULL,
+  `category_id` int(11) NOT NULL,
   `quantity` int(11) NOT NULL,
   `price` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
@@ -241,10 +228,9 @@ CREATE TABLE `product` (
 -- Dumping data for table `product`
 --
 
-INSERT INTO `product` (`id`, `product_code`, `product_name`, `category_code`, `quantity`, `price`) VALUES
-(1, '123', 'coca cola', 123, 5000, 8000),
-(2, 'test api', 'test api', 135, 1, 2),
-(3, 'trg upd', 'test api', 135, 1, 2);
+INSERT INTO `product` (`id`, `product_code`, `product_name`, `category_id`, `quantity`, `price`) VALUES
+(4, '1234', 'string 2', 7, 1, 2),
+(5, '1234', 'string', 7, 1, 2);
 
 --
 -- Triggers `product`
@@ -280,10 +266,9 @@ CREATE TABLE `product_log` (
 --
 
 INSERT INTO `product_log` (`id`, `version`, `product_id`, `operation`) VALUES
-(1, 1, 2, 'insert'),
-(2, 1, 2, 'update'),
-(3, 1, 3, 'insert'),
-(4, 1, 2, 'update');
+(8, 1, 4, 'insert'),
+(9, 1, 5, 'insert'),
+(10, 1, 4, 'update');
 
 -- --------------------------------------------------------
 
@@ -350,7 +335,7 @@ ALTER TABLE `category_log`
 --
 ALTER TABLE `product`
   ADD PRIMARY KEY (`id`),
-  ADD KEY `category_id` (`category_code`);
+  ADD KEY `category_code` (`category_id`);
 
 --
 -- Indexes for table `product_log`
@@ -396,25 +381,25 @@ ALTER TABLE `bill_log`
 -- AUTO_INCREMENT for table `category`
 --
 ALTER TABLE `category`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
 -- AUTO_INCREMENT for table `category_log`
 --
 ALTER TABLE `category_log`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
 
 --
 -- AUTO_INCREMENT for table `product`
 --
 ALTER TABLE `product`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT for table `product_log`
 --
 ALTER TABLE `product_log`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 
 --
 -- AUTO_INCREMENT for table `sync_log`
@@ -430,7 +415,7 @@ ALTER TABLE `sync_log`
 -- Constraints for table `product`
 --
 ALTER TABLE `product`
-  ADD CONSTRAINT `product_ibfk_1` FOREIGN KEY (`category_code`) REFERENCES `category` (`category_code`);
+  ADD CONSTRAINT `product_ibfk_1` FOREIGN KEY (`category_id`) REFERENCES `category` (`id`);
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
