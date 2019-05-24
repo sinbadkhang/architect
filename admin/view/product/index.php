@@ -34,7 +34,7 @@
             <label>Id:</label>
             <input type="text" name="id" id="up_id" class="form-control"/>
             <label>Product id:</label>
-            <input type="text" name="product_id" id="up_product_id" class="form-control"/>
+            <input type="text" name="product_code" id="up_product_code" class="form-control"/>
             </br>
             <label>Product Name:</label>
             <input type="text" name="product_name" id="up_product_name" class="form-control"/>
@@ -66,14 +66,18 @@
                 <div class="col-md-12">
                    <div >
                <div>
+
                 <h2 ><center>Bảng sản phẩm</center></h2>
+                <button class="btn btn-info pull-right sync-product-btn" id="sync-product-btn"  data-toggle="modal">SYNC</button>
                 <button class="btn btn-success pull-right" data-toggle="modal" data-target="#add-product-Modal">ADD PRODUCT</button>
               <table class="table table-bordered" id="productTable" width="100%" cellspacing="0">
                 <thead>
                     <th>Id</th>
                     <th>Product Code</th>
                     <th>Product Name</th>
+                    <th>Category Id</th>
                     <th>Category Code</th>
+                    <th>Category Name</th>
                     <th>Quantity</th>
                     <th>Price</th>
                     <th>Option</th>                    
@@ -85,7 +89,9 @@
                     <th>Id</th>
                     <th>Product Code</th>
                     <th>Product Name</th>
+                    <th>Category Id</th>
                     <th>Category Code</th>
+                    <th>Category Name</th>
                     <th>Quantity</th>
                     <th>Price</th>
                     <th>Option</th>        
@@ -114,13 +120,17 @@
         <div class="modal-body">
           <form method="POST" id="add-product-form">
             <label>Product id:</label>
-            <input type="text" name="product_id" id="product_id" class="form-control"/>
+            <input type="text" name="product_code" id="product_code" class="form-control"/>
             </br>
             <label>Product Name:</label>
             <input type="text" name="product_name" id="product_name" class="form-control"/>
             </br>
             <label>Category Id:</label>
-            <input type="text" name="category_id" id="category_id" class="form-control"/>
+            <select type="text" name="category_id" id="category_id" class="form-control">
+               <option>Loại sản phẩm</option>
+              
+                     
+             </select>
             </br>
             <label>Quantity:</label>
             <input type="text" name="quantity" id="quantity" class="form-control"/>
@@ -175,6 +185,11 @@
 
 </body>
 </html>
+
+
+
+
+
 
 
 
