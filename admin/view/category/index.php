@@ -28,15 +28,12 @@
                 <div class="col-md-12">
                     <div class="page-header clearfix">
                         <h2 class="pull-left">Bảng Categories</h2>
-                        <a class="btn btn-success pull-right" data-toggle="modal" data-target="#add_cate_Modal">Thêm Category</a>
-
-                        <a class="btn btn-info pull-right" data-toggle ="" data-target="">Đồng bộ hóa</a>
-                   
-
+                        <a class="btn btn-success pull-right" data-toggle="modal" data-target="#add_cate_modal">Thêm Category</a>  
+                        <a class="btn btn-info pull-right sync-cate-btn" data-toggle ="" id="sync-cate-btn">Đồng bộ hóa</a>
                     <table id="cate-table" class="table table-bordered table-striped">
                         <thead>
                             <th>ID</th>
-                            <th>Category ID</th>
+                            <th>Category Code</th>
                             <th>Category Name</th>
                             <th>Option</th>
                         </thead>
@@ -58,7 +55,7 @@
 
 
     <!-- ADD CATEGORY MODAL -->
-    <div class="modal fade" id="add_cate_Modal" role="dialog">
+    <div class="modal fade" id="add_cate_modal" role="dialog">
     <div class="modal-dialog">
       <!-- Modal content-->
       <div class="modal-content">
@@ -87,7 +84,7 @@
 
  <!-- UPDATE CATEGORY MODAL -->
 
-    <div class="modal fade" id="up_cate_Modal" role="dialog">
+    <div class="modal fade" id="up_cate_modal" role="dialog">
     <div class="modal-dialog">
       <!-- Modal content-->
       <div class="modal-content">
@@ -117,7 +114,7 @@
 
 <!--  DELETE CATEGORY MODAL -->
 
-<div id="delcate_Modal" class="modal fade" role="dialog">
+<div id="delcate_modal" class="modal fade" role="dialog">
   <div class="modal-dialog">
     <!-- Modal content-->
     <div class="modal-content">
