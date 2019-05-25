@@ -124,7 +124,7 @@
       </div>
       <div class="modal-body">
         <form method='POST' action="<?php echo $_SERVER['PHP_SELF'] ?>" id='delete-cate-form'>
-          <input type="hidden" name="id" id="del-id">
+          <input type="hidden" name="category_code" id="del-id">
         </form>
       </div>
       <div class="modal-footer">
