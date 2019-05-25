@@ -35,7 +35,7 @@
             <div class="row">
                 <div class="col-md-12">
                     <div class="page-header clearfix">
-                        <h2 class="pull-left">Bảng Thêm Bill</h2>
+                        <h2 class="pull-left">Bảng Sửa Bill</h2>
                         <br>
                         <br>
                         <br>
@@ -45,7 +45,7 @@
                         </div>
                         <div class="block">
                         <label class="head"> Created Date:</label>
-                        <input type="text"/>
+                        <input id="2" readonly />
                         </div>
                         <div class="block">
                         <label class="head">Customer Name:</label>
@@ -117,5 +117,26 @@
   integrity="sha256-WpOohJOqMqqyKL9FccASB9O0KwACQJpFTUBLTYOVvVU="
   crossorigin="anonymous"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.js"></script>
-<script type="text/javascript" src="../../control/script_bill.js"></script> 
+<script type="text/javascript" src="../../../admin/control/script_bill.js"></script> 
+<script>
+var today = new Date();
+var dd = today.getDate();
+
+var mm = today.getMonth()+1; 
+var yyyy = today.getFullYear();
+if(dd<10) 
+{
+    dd='0'+dd;
+} 
+
+if(mm<10) 
+{
+    mm='0'+mm;
+} 
+today = yyyy+'-'+mm+'-'+dd;
+console.log(today);
+
+$('#2').val(today);
+
+</script>
 </html>

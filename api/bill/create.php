@@ -22,7 +22,7 @@
 	$bill->bill_code=$data->bill_code;
 	$bill->customer_name=$data->customer_name;
 	$bill->cashier_name=$data->cashier_name;
-
+	$bill->created_date=$data->created_date;
 	$bill->total_price=$data->total_price;
 	$bill->total_point=$data->total_point;
 

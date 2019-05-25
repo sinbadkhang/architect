@@ -1,9 +1,11 @@
-<?php session_start(); ?>
+<?php session_start(); 
+
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Categories</title>
+    <title>BILL</title>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.css">
     
     <style type="text/css">
@@ -29,7 +31,8 @@
                 <div class="col-md-12">
                     <div class="page-header clearfix">
                         <h2 class="pull-left">Bảng Bill</h2>
-                        <a class="btn btn-success pull-right" href="create.php">Thêm Bill</a>
+                        <a class="btn btn-success pull-right" href="create.php">Thêm Bill</a></br>
+                      </br> 
 
                         <a class="btn btn-info pull-right" data-toggle ="" data-target="">Đồng bộ hóa</a>
                    
@@ -38,8 +41,8 @@
                         <thead>
                             <th>ID</th>
                             <th>Bill Code</th>
-                            <th>Created date</th>
                             <th>Total Price</th>
+                            <th>Created Date</th>
                             <th>Total Point</th>
                             <th>Customer Name</th>
                             <th>Cashier Name</th>
@@ -51,12 +54,12 @@
                         <tfoot>
                             <th>ID</th>
                             <th>Bill Code</th>
-                            <th>Created date</th>
                             <th>Total Price</th>
+                            <th>Created Date</th>
                             <th>Total Point</th>
                             <th>Customer Name</th>
                             <th>Cashier Name</th>
-                            <th>option</th>
+                            <th>Option</th>
                         </tfoot>
                     </table>
                 </div>
@@ -67,10 +70,10 @@
 
 
     <!-- ADD BILL MODAL -->
-    <div class="modal fade" id="add-bill-modal" role="dialog">
-    <div class="modal-dialog">
+    <!-- <div class="modal fade" id="add-bill-modal" role="dialog">
+    <div class="modal-dialog"> -->
       <!-- Modal content-->
-      <div class="modal-content">
+      <!-- <div class="modal-content">
         <div class="modal-header" text-align="left">
           <h4 class="modal-title">ADD NEW BILL</h4>
           <button type="button" class="close" data-dismiss="modal">&times;</button>
@@ -95,7 +98,7 @@
       </div>
     </div>
   </div>
-</div>
+</div> -->
 
  <!-- UPDATE BILL MODAL -->
 
@@ -163,5 +166,5 @@
   integrity="sha256-WpOohJOqMqqyKL9FccASB9O0KwACQJpFTUBLTYOVvVU="
   crossorigin="anonymous"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.js"></script>
-<script type="text/javascript" src="../../control/script_bill.js"></script> 
+<script type="text/javascript" src="../../../admin/control/script_bill.js"></script> 
 </html>

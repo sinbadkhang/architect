@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Categories</title>
+    <title>ADD BILL</title>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.css">
     
     <style type="text/css">
@@ -28,7 +28,7 @@
     </style>
 </head>
 <body>
-    
+   <form id="add-bill-form" method="POST"> 
     <div class="wrapper">
         <h1 style="color: red" align="center"> <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSodJsYqTQb4uPw5oTcjRSVgjLIFnyJYUhVduhCjYB0l3Le3txe" width="100" height="100" align="center">VL MART</h1>
         <div class="container-fluid">
@@ -41,25 +41,24 @@
                         <br>
                         <div class="block">
                         <label class="head">Bill Code:</label>
-                        <input type="text"/>
+                        <input name="bill_code" type="text"/>
                         </div>
                         <div class="block">
                         <label class="head"> Created Date:</label>
-                        <input type="text"  id="2" readonly/>
+                        <input name="created_date" type="text"  id="2" readonly/>
                         </div>
                         <div class="block">
                         <label class="head">Customer Name:</label>
-                        <input type="text"/>
+                        <input name="customer_name" type="text"/>
                         </div>
                         <div class="block">
                         <label class="head">Cashier Name:</label>
-                        <input type="text"/>
+                        <input name="cashier_name" type="text"/>
                         </div>
                         <a class="btn btn-success pull-right " data-toggle="modal" data-target="#add-billitem-modal">Thêm Product</a>                  
-                    <table id="add-billitem-table" class="table table-bordered table-striped">
+                   <table id="add-billitem-table" class="table table-bordered table-striped">
                         <thead>
                             <th>Product Name</th>
-                            <th>Product Code</th>
                             <th>Quantity </th>
                             <th>Total Price</th>
                             <th>Option</th>
@@ -69,7 +68,6 @@
                         </tbody>
                         <tfoot>
                             <th>Product Name</th>
-                            <th>Product Code</th>
                             <th>Quantity </th>
                             <th>Total Price</th>
                             <th>Option</th>
@@ -79,7 +77,12 @@
             </div>        
         </div>
     </div>
+
+<button type="button" id="submit-bill-btn" class="btn btn-info pull-right">Submit</button>
 </div>
+
+
+</form>
  <!-- ADD BILL ITEM MODAL -->
  <div class="modal fade" id="add-billitem-modal" role="dialog">
     <div class="modal-dialog">
@@ -92,11 +95,8 @@
         <div class="modal-body">
           <form method="post" id="add-billitem-form">
             <label>Product Name:</label>
-            <input type="text" name="bill-productname" id="bill-productname" class="form-control"/>
-            </br>
-             <label>Product Code:</label>
-             <input type="text" name="bill-productcode" id="bill-productcode" class="form-control"/>
-            </br>
+            <select name="product-name" class="form-control" id="proname-select" > </select>
+            </br>       
             <label>Quantity:</label>
             <input type="text" name="bill-quantity" id="bill-quantity" class="form-control"/>
             </br>
