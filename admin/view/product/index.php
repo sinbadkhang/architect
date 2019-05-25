@@ -162,7 +162,7 @@
       </div>
       <div class="modal-body">
         <form method='POST' action="<?php echo $_SERVER['PHP_SELF'] ?>" id='delete-product-form'>
-          <input type="hidden" name="id" id="del-id">
+          <input type="hidden" name="product_code" id="delete_product_code">
         </form>
       </div>
       <div class="modal-footer">

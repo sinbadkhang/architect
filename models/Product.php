@@ -78,7 +78,7 @@
 					ORDER BY 
 					p.id ASC
 					) t
-				ON t.id = l.product_id
+				ON t.product_code = l.product_code
 				WHERE l.version = ('.$q.')
 				ORDER BY 
 				l.id ASC';

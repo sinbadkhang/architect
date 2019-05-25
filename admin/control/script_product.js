@@ -97,6 +97,8 @@ $(document).ready(function(){
     data: formData,
   }).done(function (data) {
     console.log(data);
+    alert('thành công');
+       location.reload();
     
   }).fail(function (jqXHR, statusText, errorThrown) {
     console.log('fail: '+ jqXHR.responseText);
@@ -132,10 +134,10 @@ $(document).ready(function(){
   // BTN DELETE PRODUCT ON TABLE
   $('#productTable tbody').on('click', '.delete-product', function () {
     // GET DATA
-    var id = $(this).parents('tr').find('.id').text();
+    var product_code = $(this).parents('tr').find('.product_code').text();
    
     // SET DATA
-    $('#del-id').val(id);   
+    $('#delete_product_code').val(product_code);   
      
     // UPDATE MODAL
     // $('#delproduct_Modal').modal();
@@ -153,6 +155,8 @@ $(document).ready(function(){
       dateType: 'json',
       data: formData,
     }).done(function (data) {
+      alert('thành công');
+       location.reload();
       console.log(data);
       
     }).fail(function (jqXHR, statusText, errorThrown) {
@@ -173,6 +177,8 @@ $(document).ready(function(){
       data: formData,
     }).done(function (data) {
        console.log(data);
+       alert('thành công');
+       location.reload();
       // HIDE MODAL
       $('#delproduct_Modal').modal('hide');
       // getProduct();
@@ -188,72 +194,111 @@ $(document).ready(function(){
   })
   
  
- function syncFunc(){
+  function syncFunc(){
   $.ajax({
-  method: 'GET',
-  url: '../../../api/product/read_latest.php',
-  dataType: 'json'
+    method: 'GET',
+    url: '../../../api/product/read_latest.php',
+    dataType: 'json'
   }).done(function (product_arr) {
-    console.log(product_arr.data);
+    // console.log(account_arr.data);
 
-    $.each(product_arr.data,function(index,pro){
-      if(pro.operation == 'insert') { 
-        // console.log(cate);
-        var data = JSON.stringify(pro);
-        console.log(data);
+    $.each(product_arr.data, function(index,pro){
+      var data = JSON.stringify(pro); 
+      // console.log(acc.username);
+
+      if (pro.operation == 'insert') {
+        
         $.ajax({
-        method: 'POST',
-        url: '../../../../../HEAD/architect/api/product/create.php',
-        dataType: 'json',
-        data: data,
-       
+          method: 'POST',
+          url: '../../../../../head2/architect/api/product/create.php',
+          dataType: 'json',
+          data: data,
         }).done(function (data) {
-          // console.log(data);
-          
-          // location.reload();
+          console.log(data);         
           
         }).fail(function (jqXHR, statusText, errorThrown) {
           console.log('fail: '+ jqXHR.responseText);
           console.log(statusText);
           console.log(errorThrown);
         })
+
+      } else if (pro.operation == 'update') {
+        var data = JSON.stringify(pro);
+        $.ajax({
+          method: 'POST',
+          url: '../../../../../head2/architect/api/product/update.php',
+          dataType: 'json',
+          data: data,
+        }).done(function (data) {
+          alert('update thanh cong');       
+          
+        }).fail(function (jqXHR, statusText, errorThrown) {
+          console.log('fail: '+ jqXHR.responseText);
+          console.log(statusText);
+          console.log(errorThrown);
+        })
+
+      } else if (pro.operation == 'delete') {
+
+        $.ajax({
+          method: 'POST',
+          url: '../../../../../head2/architect/api/product/delete.php',
+          dataType: 'json',
+          data: data,
+        }).done(function (data) {
+          console.log(data);         
+          
+        }).fail(function (jqXHR, statusText, errorThrown) {
+          console.log('fail: '+ jqXHR.responseText);
+          console.log(statusText);
+          console.log(errorThrown);
+        })
+
       }
-      if(pro.operation == 'delete') { 
-        // console.log(cate);
-        var data = JSON.stringify(pro);
+     
+    })
+    // get latest head2 version
+    var ser_ver;
+    var data ;
+
+    $.ajax({
+      method: 'POST',
+      url: '../../../../../head2/architect/api/sync_log/read_latest.php',
+      dataType: 'json'
+    }).done(function (product_arr) {
+      
+      $.each(product_arr.data, function(index,pro){
+        ser_ver = parseInt(pro.server_version)+1;
+        pro.server_version = ser_ver;
+        console.log(pro.server_version);
+        data = JSON.stringify(pro);
         console.log(data);
-        $.ajax({
-        method: 'POST',
-        url: '../../../../../HEAD/architect/api/product/delete.php',
-        dataType: 'json',
-        data: data,
-       
-        }).done(function (data) {
-          // console.log(data);
-          
-          // location.reload();
-          
-        }).fail(function (jqXHR, statusText, errorThrown) {
-          console.log('fail: '+ jqXHR.responseText);
-          console.log(statusText);
-          console.log(errorThrown);
-        })
-      }   
-    }) 
-    //end loop
-    alert('ok');
- }).fail(function(data,jqXHR,statusText,errorThrown){
-   console.log('fail: ' + jqXHR.responseText);
-   console.log(statusText);
-   console.log(errorThrown);
- })
+      })    
+
+      $.ajax({
+      method: 'POST',
+      url: '../../../../../head2/architect/api/sync_log/create.php',
+      dataType: 'json',
+      data: data
+      }).done(function (sync_log) {
+                   
+        alert('thành công');
+      }).fail(function (jqXHR, statusText, errorThrown) {
+        console.log('fail: '+ jqXHR.responseText);
+        console.log(statusText);
+        console.log(errorThrown);
+      })          
+      
+    }).fail(function (jqXHR, statusText, errorThrown) {
+      console.log('fail: '+ jqXHR.responseText);
+      console.log(statusText);
+      console.log(errorThrown);
+    })
+
+  }).fail(function (jqXHR, statusText, errorThrown) {
+    console.log('fail: '+ jqXHR.responseText);
+    console.log(statusText);
+    console.log(errorThrown);
+  })
 };
-
-
-
-
-
-
-
-
 });
