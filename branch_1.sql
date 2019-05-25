@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Máy chủ: 127.0.0.1
--- Thời gian đã tạo: Th5 24, 2019 lúc 07:03 PM
+-- Thời gian đã tạo: Th5 25, 2019 lúc 07:39 AM
 -- Phiên bản máy phục vụ: 10.1.38-MariaDB
 -- Phiên bản PHP: 7.3.3
 
@@ -41,22 +41,22 @@ CREATE TABLE `account` (
 --
 
 INSERT INTO `account` (`id`, `username`, `password`, `type`, `point`) VALUES
-(19, 'sinbadkhang', '12312', 'manager', 1),
-(22, 'sinbadkhang1', '12', 'manager', 2);
+(26, 'testins', '1234', 'manager', 0),
+(30, 'testup', '1', 'manager', 0);
 
 --
 -- Bẫy `account`
 --
 DELIMITER $$
-CREATE TRIGGER `trg_acc_del` AFTER DELETE ON `account` FOR EACH ROW INSERT INTO account_log VALUES(null,(SELECT server_version FROM sync_log ORDER BY id DESC LIMIT 1), OLD.id, 'delete')
+CREATE TRIGGER `trg_acc_del` AFTER DELETE ON `account` FOR EACH ROW INSERT INTO account_log VALUES(null,(SELECT server_version FROM sync_log ORDER BY id DESC LIMIT 1), OLD.username, 'delete')
 $$
 DELIMITER ;
 DELIMITER $$
-CREATE TRIGGER `trg_acc_ins` AFTER INSERT ON `account` FOR EACH ROW INSERT INTO account_log VALUES(null,(SELECT server_version FROM sync_log ORDER BY id DESC LIMIT 1), NEW.id, 'insert')
+CREATE TRIGGER `trg_acc_ins` AFTER INSERT ON `account` FOR EACH ROW INSERT INTO account_log VALUES(null,(SELECT server_version FROM sync_log ORDER BY id DESC LIMIT 1), NEW.username, 'insert')
 $$
 DELIMITER ;
 DELIMITER $$
-CREATE TRIGGER `trg_acc_upd` AFTER UPDATE ON `account` FOR EACH ROW INSERT INTO account_log VALUES(null,(SELECT server_version FROM sync_log ORDER BY id DESC LIMIT 1), NEW.id, 'update')
+CREATE TRIGGER `trg_acc_upd` AFTER UPDATE ON `account` FOR EACH ROW INSERT INTO account_log VALUES(null,(SELECT server_version FROM sync_log ORDER BY id DESC LIMIT 1), NEW.username, 'update')
 $$
 DELIMITER ;
 
@@ -69,9 +69,17 @@ DELIMITER ;
 CREATE TABLE `account_log` (
   `id` int(11) NOT NULL,
   `version` int(11) NOT NULL,
-  `account_id` int(11) NOT NULL,
+  `username` varchar(20) COLLATE utf8_unicode_ci NOT NULL,
   `operation` varchar(10) COLLATE utf8_unicode_ci NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+--
+-- Đang đổ dữ liệu cho bảng `account_log`
+--
+
+INSERT INTO `account_log` (`id`, `version`, `username`, `operation`) VALUES
+(45, 0, 'testup', 'insert'),
+(46, 0, 'testup', 'update');
 
 -- --------------------------------------------------------
 
@@ -102,15 +110,15 @@ INSERT INTO `bill` (`id`, `bill_code`, `bill_info`, `created_date`, `total_price
 -- Bẫy `bill`
 --
 DELIMITER $$
-CREATE TRIGGER `trg_bill_del` AFTER DELETE ON `bill` FOR EACH ROW INSERT INTO bill_log VALUES(null,(SELECT server_version FROM sync_log ORDER BY id DESC LIMIT 1), OLD.id, 'delete')
+CREATE TRIGGER `trg_bill_del` AFTER DELETE ON `bill` FOR EACH ROW INSERT INTO bill_log VALUES(null,(SELECT server_version FROM sync_log ORDER BY id DESC LIMIT 1), OLD.bill_code, 'delete')
 $$
 DELIMITER ;
 DELIMITER $$
-CREATE TRIGGER `trg_bill_ins` AFTER INSERT ON `bill` FOR EACH ROW INSERT INTO bill_log VALUES(null,(SELECT server_version FROM sync_log ORDER BY id DESC LIMIT 1), NEW.id, 'insert')
+CREATE TRIGGER `trg_bill_ins` AFTER INSERT ON `bill` FOR EACH ROW INSERT INTO bill_log VALUES(null,(SELECT server_version FROM sync_log ORDER BY id DESC LIMIT 1), NEW.bill_code, 'insert')
 $$
 DELIMITER ;
 DELIMITER $$
-CREATE TRIGGER `trg_bill_upd` AFTER UPDATE ON `bill` FOR EACH ROW INSERT INTO bill_log VALUES(null,(SELECT server_version FROM sync_log ORDER BY id DESC LIMIT 1), NEW.id, 'update')
+CREATE TRIGGER `trg_bill_upd` AFTER UPDATE ON `bill` FOR EACH ROW INSERT INTO bill_log VALUES(null,(SELECT server_version FROM sync_log ORDER BY id DESC LIMIT 1), NEW.bill_code, 'update')
 $$
 DELIMITER ;
 
@@ -123,7 +131,7 @@ DELIMITER ;
 CREATE TABLE `bill_log` (
   `id` int(11) NOT NULL,
   `version` int(11) NOT NULL,
-  `bill_id` int(11) NOT NULL,
+  `bill_code` int(11) NOT NULL,
   `operation` varchar(10) COLLATE utf8_unicode_ci NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
@@ -144,21 +152,21 @@ CREATE TABLE `category` (
 --
 
 INSERT INTO `category` (`id`, `category_code`, `category_name`) VALUES
-(7, 123, 'drink');
+(7, 123, 'drinkupd');
 
 --
 -- Bẫy `category`
 --
 DELIMITER $$
-CREATE TRIGGER `trg_cate_del` AFTER DELETE ON `category` FOR EACH ROW INSERT INTO category_log VALUES(null,(SELECT server_version FROM sync_log ORDER BY id DESC LIMIT 1), OLD.id, 'delete')
+CREATE TRIGGER `trg_cate_del` AFTER DELETE ON `category` FOR EACH ROW INSERT INTO category_log VALUES(null,(SELECT server_version FROM sync_log ORDER BY id DESC LIMIT 1), OLD.category_code, 'delete')
 $$
 DELIMITER ;
 DELIMITER $$
-CREATE TRIGGER `trg_cate_ins` AFTER INSERT ON `category` FOR EACH ROW INSERT INTO category_log VALUES(null,(SELECT server_version FROM sync_log ORDER BY id DESC LIMIT 1), NEW.id, 'insert')
+CREATE TRIGGER `trg_cate_ins` AFTER INSERT ON `category` FOR EACH ROW INSERT INTO category_log VALUES(null,(SELECT server_version FROM sync_log ORDER BY id DESC LIMIT 1), NEW.category_code, 'insert')
 $$
 DELIMITER ;
 DELIMITER $$
-CREATE TRIGGER `trg_cate_upd` AFTER UPDATE ON `category` FOR EACH ROW INSERT INTO category_log VALUES(null,(SELECT server_version FROM sync_log ORDER BY id DESC LIMIT 1), NEW.id, 'update')
+CREATE TRIGGER `trg_cate_upd` AFTER UPDATE ON `category` FOR EACH ROW INSERT INTO category_log VALUES(null,(SELECT server_version FROM sync_log ORDER BY id DESC LIMIT 1), NEW.category_code, 'update')
 $$
 DELIMITER ;
 
@@ -171,9 +179,18 @@ DELIMITER ;
 CREATE TABLE `category_log` (
   `id` int(11) NOT NULL,
   `version` int(11) NOT NULL,
-  `category_id` int(11) NOT NULL,
+  `category_code` int(11) NOT NULL,
   `operation` varchar(10) COLLATE utf8_unicode_ci NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+--
+-- Đang đổ dữ liệu cho bảng `category_log`
+--
+
+INSERT INTO `category_log` (`id`, `version`, `category_code`, `operation`) VALUES
+(1, 0, 4, 'insert'),
+(2, 0, 123, 'update'),
+(3, 0, 4, 'delete');
 
 -- --------------------------------------------------------
 
@@ -201,15 +218,15 @@ INSERT INTO `product` (`id`, `product_code`, `product_name`, `category_id`, `qua
 -- Bẫy `product`
 --
 DELIMITER $$
-CREATE TRIGGER `trg_pro_del` AFTER DELETE ON `product` FOR EACH ROW INSERT INTO product_log VALUES(null,(SELECT server_version FROM sync_log ORDER BY id DESC LIMIT 1), OLD.id, 'delete')
+CREATE TRIGGER `trg_pro_del` AFTER DELETE ON `product` FOR EACH ROW INSERT INTO product_log VALUES(null,(SELECT server_version FROM sync_log ORDER BY id DESC LIMIT 1), OLD.product_code, 'delete')
 $$
 DELIMITER ;
 DELIMITER $$
-CREATE TRIGGER `trg_pro_ins` AFTER INSERT ON `product` FOR EACH ROW INSERT INTO product_log VALUES(null,(SELECT server_version FROM sync_log ORDER BY id DESC LIMIT 1), NEW.id, 'insert')
+CREATE TRIGGER `trg_pro_ins` AFTER INSERT ON `product` FOR EACH ROW INSERT INTO product_log VALUES(null,(SELECT server_version FROM sync_log ORDER BY id DESC LIMIT 1), NEW.product_code, 'insert')
 $$
 DELIMITER ;
 DELIMITER $$
-CREATE TRIGGER `trg_pro_upd` AFTER UPDATE ON `product` FOR EACH ROW INSERT INTO product_log VALUES(null,(SELECT server_version FROM sync_log ORDER BY id DESC LIMIT 1), NEW.id, 'update')
+CREATE TRIGGER `trg_pro_upd` AFTER UPDATE ON `product` FOR EACH ROW INSERT INTO product_log VALUES(null,(SELECT server_version FROM sync_log ORDER BY id DESC LIMIT 1), NEW.product_code, 'update')
 $$
 DELIMITER ;
 
@@ -222,9 +239,18 @@ DELIMITER ;
 CREATE TABLE `product_log` (
   `id` int(11) NOT NULL,
   `version` int(11) NOT NULL,
-  `product_id` int(11) NOT NULL,
+  `product_code` int(11) NOT NULL,
   `operation` varchar(10) COLLATE utf8_unicode_ci NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+--
+-- Đang đổ dữ liệu cho bảng `product_log`
+--
+
+INSERT INTO `product_log` (`id`, `version`, `product_code`, `operation`) VALUES
+(1, 0, 4, 'insert'),
+(2, 0, 4, 'update'),
+(3, 0, 4, 'delete');
 
 -- --------------------------------------------------------
 
@@ -316,13 +342,13 @@ ALTER TABLE `sync_log`
 -- AUTO_INCREMENT cho bảng `account`
 --
 ALTER TABLE `account`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=23;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=31;
 
 --
 -- AUTO_INCREMENT cho bảng `account_log`
 --
 ALTER TABLE `account_log`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=26;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=47;
 
 --
 -- AUTO_INCREMENT cho bảng `bill`
@@ -334,19 +360,19 @@ ALTER TABLE `bill`
 -- AUTO_INCREMENT cho bảng `bill_log`
 --
 ALTER TABLE `bill_log`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT cho bảng `category`
 --
 ALTER TABLE `category`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
 -- AUTO_INCREMENT cho bảng `category_log`
 --
 ALTER TABLE `category_log`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT cho bảng `product`
@@ -358,13 +384,13 @@ ALTER TABLE `product`
 -- AUTO_INCREMENT cho bảng `product_log`
 --
 ALTER TABLE `product_log`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT cho bảng `sync_log`
 --
 ALTER TABLE `sync_log`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- Các ràng buộc cho các bảng đã đổ

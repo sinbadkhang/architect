@@ -80,8 +80,7 @@
 			// query
 			$q = 'SELECT server_version FROM sync_log ORDER BY id DESC LIMIT 1';
 
-			$query = 'SELECT 
-				l.account_id,
+			$query = 'SELECT
 				a.username,
 				a.password,
 				a.type,
@@ -92,7 +91,7 @@
 				account_log l
 				LEFT JOIN
 				' . $this->table . ' a
-				ON a.id = l.account_id
+				ON a.username = l.username
 				WHERE l.version = ('.$q.')
 				ORDER BY 
 				l.id ASC';
@@ -116,7 +115,7 @@
 				type = :type,
 				point = :point
 				WHERE
-				id = :id';
+				username = :username';
 
 			// prepare statement
 			$stmt = $this->conn->prepare($query);
@@ -126,14 +125,12 @@
 			$this->password=htmlspecialchars(strip_tags($this->password));
 			$this->type=htmlspecialchars(strip_tags($this->type));
 			$this->point=htmlspecialchars(strip_tags($this->point));
-			$this->id=htmlspecialchars(strip_tags($this->id));
 
 			// bind data
 			$stmt->bindParam(':username', $this->username);
 			$stmt->bindParam(':password', $this->password);
 			$stmt->bindParam(':type', $this->type);
 			$stmt->bindParam(':point', $this->point);
-			$stmt->bindParam(':id', $this->id);
 
 			// execute query
 			if($stmt->execute()){

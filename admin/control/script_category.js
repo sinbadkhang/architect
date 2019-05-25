@@ -80,7 +80,7 @@ $(document).ready(function(){
       // console.log(cate.category_code);
       rows +="<tr>";
       rows +="<td class='id'>"+cate.id+"</td>";
-      rows +="<td class='cate-code' id='cate-code'>"+cate.category_code+"</td>";
+      rows +="<td class='category_code'>"+cate.category_code+"</td>";
       rows +="<td class='cate-name' id='cate-name'>"+cate.category_name+"</td>";
       rows +="<td class='option'><button class='btn btn-warning update-cate' value='Edit'data-target='#up_cate_Modal'>EDIT</button> &nbsp <button value='delete' class='btn btn-danger delete-category' id='delete-cate-btn'>DELETE</button></td>";
       rows +="</tr>";
@@ -134,10 +134,11 @@ $(document).ready(function(){
   // BTN DELETE CATEGORY ON TABLE
   $('#cate-table tbody').on('click', '.delete-category', function () {
     // GET DATA
-    var id = $(this).parents('tr').find('.id').text();
+    var id = $(this).parents('tr').find('.category_code').text();
    
     // SET DATA
     $('#del-id').val(id);
+    console.log(id);
         
     // UPDATE MODAL
     $('#delcate_modal').modal();

@@ -78,7 +78,7 @@
 					ORDER BY 
 					p.id ASC
 					) t
-				ON t.id = l.product_id
+				ON t.product_code = l.product_code
 				WHERE l.version = ('.$q.')
 				ORDER BY 
 				l.id ASC';
@@ -98,12 +98,11 @@
 			$query = 'UPDATE '.$this->table.'
 				SET 
 				product_name = :product_name,
-				product_code = :product_code,
 				category_id = :category_id,
 				quantity = :quantity,
 				price = :price
 				WHERE
-				id = :id';
+				product_code = :product_code';
 
 			// prepare statement
 			$stmt = $this->conn->prepare($query);
@@ -114,7 +113,6 @@
 			$this->category_id=htmlspecialchars(strip_tags($this->category_id));
 			$this->quantity=htmlspecialchars(strip_tags($this->quantity));
 			$this->price=htmlspecialchars(strip_tags($this->price));
-			$this->id=htmlspecialchars(strip_tags($this->id));
 
 			// bind data
 			$stmt->bindParam(':product_name', $this->product_name);
@@ -122,7 +120,6 @@
 			$stmt->bindParam(':category_id', $this->category_id);
 			$stmt->bindParam(':quantity', $this->quantity);
 			$stmt->bindParam(':price', $this->price);
-			$stmt->bindParam(':id', $this->id);
 
 			// execute query
 			if($stmt->execute()){
@@ -178,16 +175,16 @@
 		// DELETE PRODUCT
 		public function delete(){
 			// create query
-			$query = 'DELETE FROM '.$this->table.' WHERE id = :id';
+			$query = 'DELETE FROM '.$this->table.' WHERE product_code = :product_code';
 
 			// prepare statement
 			$stmt = $this->conn->prepare($query);
 
 			// clean data
-			$this->id = htmlspecialchars(strip_tags($this->id));
+			$this->product_code = htmlspecialchars(strip_tags($this->product_code));
 			
 			// bind data
-			$stmt->bindParam(':id', $this->id);
+			$stmt->bindParam(':product_code', $this->product_code);
 
 			// execute query
 			if($stmt->execute()){

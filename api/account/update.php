@@ -18,9 +18,7 @@
 	// get data
 	$data = json_decode(file_get_contents("php://input"));
 
-	// set id to update
-	$account->id=$data->id;
-	
+	// set id to update	
 	$account->username=$data->username;
 	$account->password=$data->password;
 	$account->type=$data->type;

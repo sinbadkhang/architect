@@ -1,7 +1,7 @@
 <?php 
 	class Database {
 		// parameters
-		private $host = 'localhost';
+		private $host = '127.0.0.1:3307';
 		private $dbname = 'branch_1';
 		private $username = 'root';
 		private $password = '';

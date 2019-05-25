@@ -19,7 +19,7 @@
 	$data = json_decode(file_get_contents("php://input"));
 
 	// set id to update
-	$category->id=$data->id;
+	$category->category_code=$data->category_code;
 
 	// delete category
 	if($category->delete()){ 
