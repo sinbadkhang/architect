@@ -29,7 +29,6 @@
 			extract($row);
 
 			$account_item = array(
-				'account_code'=>$account_code,
 				'username'=>$username,
 				'password'=>$password,
 				'type'=>$type,

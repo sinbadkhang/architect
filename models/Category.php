@@ -41,8 +41,6 @@
 			$q = 'SELECT server_version FROM sync_log ORDER BY id DESC LIMIT 1';
 
 			$query = 'SELECT 
-				l.id,
-				a.id as category_id,
 				a.category_code,
 				a.category_name,
 				l.version,
@@ -51,10 +49,10 @@
 				category_log l
 				LEFT JOIN
 				' . $this->table . ' a
-				ON a.id = l.category_id
+				ON a.category_code = l.category_code
 				WHERE l.version = ('.$q.')
 				ORDER BY 
-				id ASC';
+				l.id ASC';
 
 			// prepare statement
 			$stmt = $this->conn->prepare($query);
@@ -70,10 +68,9 @@
 			// create query
 			$query = 'UPDATE '.$this->table.'
 				SET 
-				category_code = :category_code,
 				category_name = :category_name 
 				WHERE
-				id = :id';
+				category_code = :category_code';
 
 			// prepare statement
 			$stmt = $this->conn->prepare($query);
@@ -81,12 +78,10 @@
 			// clean data
 			$this->category_name=htmlspecialchars(strip_tags($this->category_name));
 			$this->category_code=htmlspecialchars(strip_tags($this->category_code));
-			$this->id=htmlspecialchars(strip_tags($this->id));
 
 			// bind data
 			$stmt->bindParam(':category_name', $this->category_name);
 			$stmt->bindParam(':category_code', $this->category_code);
-			$stmt->bindParam(':id', $this->id);
 
 			// execute query
 			if($stmt->execute()){
@@ -132,16 +127,16 @@
 		// DELETE CATEGORY
 		public function delete(){
 			// create query
-			$query = 'DELETE FROM '.$this->table.' WHERE id = :id';
+			$query = 'DELETE FROM '.$this->table.' WHERE category_code = :category_code';
 
 			// prepare statement
 			$stmt = $this->conn->prepare($query);
 
 			// clean data
-			$this->id = htmlspecialchars(strip_tags($this->id));
+			$this->category_code = htmlspecialchars(strip_tags($this->category_code));
 			
 			// bind data
-			$stmt->bindParam(':id', $this->id);
+			$stmt->bindParam(':category_code', $this->category_code);
 
 			// execute query
 			if($stmt->execute()){

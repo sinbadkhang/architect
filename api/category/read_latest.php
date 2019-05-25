@@ -29,8 +29,6 @@
 			extract($row);
 
 			$category_item = array(
-				'id'=>$id,
-				'category_id'=>$category_id,
 				'category_code'=>$category_code,
 				'category_name'=>$category_name,
 				'version'=>$version,
